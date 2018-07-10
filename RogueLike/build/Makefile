@@ -136,6 +136,19 @@ ecs/fast:
 	$(MAKE) -f ecs/CMakeFiles/ecs.dir/build.make ecs/CMakeFiles/ecs.dir/build
 .PHONY : ecs/fast
 
+#=============================================================================
+# Target rules for targets named map_objects
+
+# Build rule for target.
+map_objects: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 map_objects
+.PHONY : map_objects
+
+# fast build rule for target.
+map_objects/fast:
+	$(MAKE) -f MapObjects/CMakeFiles/map_objects.dir/build.make MapObjects/CMakeFiles/map_objects.dir/build
+.PHONY : map_objects/fast
+
 Engine.o: Engine.cpp.o
 
 .PHONY : Engine.o
@@ -254,6 +267,7 @@ help:
 	@echo "... Roguelike"
 	@echo "... edit_cache"
 	@echo "... ecs"
+	@echo "... map_objects"
 	@echo "... Engine.o"
 	@echo "... Engine.i"
 	@echo "... Engine.s"

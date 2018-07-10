@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lucb/Programming/cpp/RogueLikeCPP/MapObjects/GameMap.cpp
+GameMap.h
+/home/lucb/Programming/cpp/RogueLikeCPP/MapObjects/GameMap.h
+
+/home/lucb/Programming/cpp/RogueLikeCPP/MapObjects/GameMap.h
+array
+-
+Tile.h
+/home/lucb/Programming/cpp/RogueLikeCPP/MapObjects/Tile.h
+
+/home/lucb/Programming/cpp/RogueLikeCPP/MapObjects/Tile.h
+

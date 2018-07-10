@@ -19,7 +19,7 @@ void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities)
     for (auto &entity : entities)
     {
         TCODConsole::root->setDefaultForeground(entity->getColor());
-        TCODConsole::root->putChar(entity->getXPos(), entity->getYPos(), entity->getVisual());
+        TCODConsole::root->putChar(entity->getXPos(), entity->getYPos(), entity->getVisual(), TCOD_BKGND_NONE);
     }
 
     TCODConsole::flush();
@@ -27,5 +27,8 @@ void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities)
     
 void Renderer::ClearAll(const std::vector<std::unique_ptr<Entity>>& entities)
 {
-
+    for (auto &entity : entities)
+    {
+        TCODConsole::root->putChar(entity->getXPos(), entity->getYPos(), ' ', TCOD_BKGND_NONE);
+    }
 }

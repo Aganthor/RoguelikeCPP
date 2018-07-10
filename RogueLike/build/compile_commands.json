@@ -23,5 +23,10 @@
   "directory": "/home/lucb/Programming/cpp/RogueLikeCPP/RogueLike/build/ecs",
   "command": "/usr/bin/c++   -I/home/lucb/Programming/cpp/RogueLikeCPP/include  -g   -o CMakeFiles/ecs.dir/Entity.cpp.o -c /home/lucb/Programming/cpp/RogueLikeCPP/ecs/Entity.cpp",
   "file": "/home/lucb/Programming/cpp/RogueLikeCPP/ecs/Entity.cpp"
+},
+{
+  "directory": "/home/lucb/Programming/cpp/RogueLikeCPP/RogueLike/build/MapObjects",
+  "command": "/usr/bin/c++   -I/home/lucb/Programming/cpp/RogueLikeCPP/include  -g   -o CMakeFiles/map_objects.dir/GameMap.cpp.o -c /home/lucb/Programming/cpp/RogueLikeCPP/MapObjects/GameMap.cpp",
+  "file": "/home/lucb/Programming/cpp/RogueLikeCPP/MapObjects/GameMap.cpp"
 }
 ]

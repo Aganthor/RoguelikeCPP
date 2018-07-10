@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "../../CMakeLists.txt"
+  "../../MapObjects/CMakeLists.txt"
   "CMakeFiles/3.11.4/CMakeCCompiler.cmake"
   "CMakeFiles/3.11.4/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.11.4/CMakeSystem.cmake"
@@ -47,10 +48,12 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "ecs/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "MapObjects/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/Roguelike.dir/DependInfo.cmake"
   "ecs/CMakeFiles/ecs.dir/DependInfo.cmake"
+  "MapObjects/CMakeFiles/map_objects.dir/DependInfo.cmake"
   )

@@ -203,6 +203,9 @@ SDL2_DIR:PATH=/usr/lib64/cmake/SDL2
 //Dependencies for target
 ecs_LIB_DEPENDS:STATIC=
 
+//Dependencies for target
+map_objects_LIB_DEPENDS:STATIC=
+
 
 ########################
 # INTERNAL cache entries
@@ -306,7 +309,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

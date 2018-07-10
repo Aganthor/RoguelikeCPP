@@ -19,6 +19,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/lucb/Programming/cpp/RogueLikeCPP/RogueLike/build/ecs/CMakeFiles/ecs.dir/DependInfo.cmake"
+  "/home/lucb/Programming/cpp/RogueLikeCPP/RogueLike/build/MapObjects/CMakeFiles/map_objects.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

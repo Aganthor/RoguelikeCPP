@@ -34,16 +34,16 @@ void Engine::HandleInput()
 	switch (m_TCODKey.vk)
 	{
 	case TCODK_UP:
-		m_Player->Move(0, -1);
+		
 		break;
 	case TCODK_DOWN:
-		m_Player->Move(0, 1);
+		
 		break;
 	case TCODK_LEFT:
-		m_Player->Move(-1, 0);
+		
 		break;
 	case TCODK_RIGHT:
-		m_Player->Move(1, 0);
+		
 		break;
 	}
 

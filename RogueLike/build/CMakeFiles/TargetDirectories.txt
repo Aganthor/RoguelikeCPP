@@ -4,3 +4,6 @@
 /home/lucb/Programming/cpp/RogueLikeCPP/RogueLike/build/ecs/CMakeFiles/rebuild_cache.dir
 /home/lucb/Programming/cpp/RogueLikeCPP/RogueLike/build/ecs/CMakeFiles/ecs.dir
 /home/lucb/Programming/cpp/RogueLikeCPP/RogueLike/build/ecs/CMakeFiles/edit_cache.dir
+/home/lucb/Programming/cpp/RogueLikeCPP/RogueLike/build/MapObjects/CMakeFiles/rebuild_cache.dir
+/home/lucb/Programming/cpp/RogueLikeCPP/RogueLike/build/MapObjects/CMakeFiles/map_objects.dir
+/home/lucb/Programming/cpp/RogueLikeCPP/RogueLike/build/MapObjects/CMakeFiles/edit_cache.dir
