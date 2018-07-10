@@ -12,14 +12,11 @@ include_directories(include/)
 
 add_subdirectory(ecs)
 
-add_executable(${PROJECT_NAME} main.cpp Engine.cpp Game.cpp)
+add_executable(${PROJECT_NAME} main.cpp Engine.cpp Game.cpp Renderer.cpp)
 target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/lib/libtcod.so ${CMAKE_SOURCE_DIR}/lib/libtcodgui.so ${SDL2_LIBRARIES} ecs)
 
 set (source "${CMAKE_SOURCE_DIR}/res")
 set (destination "${CMAKE_CURRENT_BINARY_DIR}/res")
-#message("Binary dir: " ${CMAKE_CURRENT_BINARY_DIR})
-#message("Source dir: " ${source})
-#message("Destination dir: " ${destination})
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory ${destination} 

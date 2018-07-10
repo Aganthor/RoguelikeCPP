@@ -6,9 +6,9 @@
         {
             "label": "Run Roguelike",
             "type": "shell",
-            "command": "Roguelike",
+            "command": "./Roguelike",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceFolder}/RogueLike/build/"
             },
             "problemMatcher": []
         }

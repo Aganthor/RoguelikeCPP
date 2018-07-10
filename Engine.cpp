@@ -15,20 +15,15 @@ void Engine::InitEngine()
 	m_OffConsole = TCOD_console_new(Engine::MAP_WIDTH, Engine::MAP_HEIGHT);
 
 	m_Player = std::make_unique<Entity>(0, 0, "Player", '@', TCODColor::white);
+	m_Entities.push_back(std::move(m_Player));
+	m_Entities.push_back(std::make_unique<Entity>(23, 23, "Troll", 'T', TCODColor::green));
 
 	m_IsRunning = true;
 }
 
 void Engine::Update()
 {
-	//TCOD_color_t col;
-	//TCODColor col2;
-	//TCOD_console_set_default_foreground(m_MainConsole, TCODColor::white);
-	TCODConsole::root->setDefaultForeground(TCODColor::white);
-	TCODConsole::root->clear();
-	TCODConsole::root->putChar(m_Player->getXPos(), m_Player->getYPos(), m_Player->getVisual());
-	//TCODConsole::blit(m_MainConsole, 0, 0, Engine::MAP_WIDTH, Engine::MAP_HEIGHT, 0, 0, 0);
-	TCODConsole::flush();
+	m_Renderer.RenderAll(m_Entities);
 }
 
 void Engine::HandleInput()

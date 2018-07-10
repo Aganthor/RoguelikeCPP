@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "ecs/Entity.h"
+#include "Renderer.h"
 
 //***************************************************************************//
 // Engine code will be responsible for handling the graphics part of the     //
@@ -44,5 +45,6 @@ private:
 	std::unique_ptr<Entity> m_Player;
 	std::vector<std::unique_ptr<Entity>> m_Entities;
 
+	Renderer m_Renderer;
 };
 
