@@ -13,6 +13,8 @@ GameMap.h
 /home/lucb/Programming/cpp/RogueLikeCPP/MapObjects/GameMap.h
 array
 -
+cstddef
+-
 Tile.h
 /home/lucb/Programming/cpp/RogueLikeCPP/MapObjects/Tile.h
 

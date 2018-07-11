@@ -1,14 +1,20 @@
 #pragma once
 
 #include <array>
+#include <cstddef>
 
 #include "Tile.h"
+
+namespace Map
+{
+
+const std::size_t MAP_WIDTH = 80;
+const std::size_t MAP_HEIGHT = 45;
 
 class CGameMap
 {
 public:
-    const int MAP_WIDTH = 80;
-    const int MAP_HEIGHT = 45;
+ 
 public:
     CGameMap();
     CGameMap(int w, int h);
@@ -27,5 +33,9 @@ private:
 private:
     int m_Width;
     int m_Height;
-    std::array<std::array<int, MAP_WIDTH>, MAP_HEIGHT> m_GameMap;
+
+    template <class T, size_t ROW, size_t COL>
+    using Matrix = std::array<std::array<T, COL>, ROW>;
+    Matrix<CTile, MAP_WIDTH, MAP_HEIGHT> m_GameMap;
 };
+}
