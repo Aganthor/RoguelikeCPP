@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmap_objects.a  CMakeFiles/map_objects.dir/GameMap.cpp.o
-/usr/bin/ranlib libmap_objects.a
