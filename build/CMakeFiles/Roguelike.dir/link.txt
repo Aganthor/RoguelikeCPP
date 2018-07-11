@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/Roguelike.dir/main.cpp.o CMakeFiles/Roguelike.dir/Engine.cpp.o CMakeFiles/Roguelike.dir/Game.cpp.o  -o Roguelike  -L/home/lucb/Programming/cpp/RogueLikeCPP/lib -Wl,-rpath,/home/lucb/Programming/cpp/RogueLikeCPP/lib -ltcod -ltcodgui ecs/libecs.a 
