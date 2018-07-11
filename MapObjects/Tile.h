@@ -12,8 +12,13 @@ public:
     }
     ~CTile();
 
+    //Getters / setters
     bool isBlocked() { return m_Blocked; }
     bool isBlockingSight() { return m_BlockSight;}
+
+    void setBlocked(bool b) { m_Blocked = b; }
+    void setBlockSight(bool b) { m_BlockSight = b; }
+    void setBoth(bool block, bool block_sight) { m_Blocked = block; m_BlockSight = block_sight;}
 
 private:
     bool m_Blocked;
