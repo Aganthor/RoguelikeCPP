@@ -1,11 +1,18 @@
 #include "Engine.h"
 
+#include <algorithm>
+
+using namespace Map;
+
 Engine::~Engine()
 {
 	TCOD_console_delete(m_MainConsole);
 	TCOD_console_delete(m_OffConsole);
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Initialize TCOD consoles.
+///////////////////////////////////////////////////////////////////////////////
 void Engine::InitEngine()
 {
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
@@ -14,48 +21,84 @@ void Engine::InitEngine()
 	m_MainConsole = TCOD_console_new(Engine::MAP_WIDTH, Engine::MAP_HEIGHT);
 	m_OffConsole = TCOD_console_new(Engine::MAP_WIDTH, Engine::MAP_HEIGHT);
 
-	m_Player = std::make_unique<Entity>(0, 0, "Player", '@', TCODColor::white);
-	m_Entities.push_back(std::move(m_Player));
+	m_Entities.push_back(std::make_unique<Entity>(30, 22, "Player", '@', TCODColor::white));
 	m_Entities.push_back(std::make_unique<Entity>(23, 23, "Troll", 'T', TCODColor::green));
 
 	m_IsRunning = true;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Called each loop to update the graphics part.
+///////////////////////////////////////////////////////////////////////////////
 void Engine::Update()
 {
-	m_Renderer.RenderAll(m_Entities);
+	m_Renderer.RenderAll(m_Entities, m_GameMap);
+	m_Renderer.ClearAll(m_Entities);
 }
 
-void Engine::HandleInput()
+///////////////////////////////////////////////////////////////////////////////
+// Function that register keyboard input. FOr fullscreen and exit, we just
+// set some boolean. FOr mouvement, we set up the m_InputAction tuple to
+// represent what the user did.
+///////////////////////////////////////////////////////////////////////////////
+void Engine::RegisterInput()
 {
 	m_TCODEvent = TCODSystem::checkForEvent(TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &m_TCODKey, &m_TCODMouse);
 
 	//Handle character mouvement
-	switch (m_TCODKey.vk)
+	if (m_TCODEvent == TCOD_EVENT_KEY_PRESS)
 	{
-	case TCODK_UP:
-		
-		break;
-	case TCODK_DOWN:
-		
-		break;
-	case TCODK_LEFT:
-		
-		break;
-	case TCODK_RIGHT:
-		
-		break;
-	}
+		switch (m_TCODKey.vk)
+		{
+		case TCODK_UP:
+			m_InputAction = std::make_tuple("move", 0, -1);
+			break;
+		case TCODK_DOWN:
+			m_InputAction = std::make_tuple("move", 0, 1);
+			break;
+		case TCODK_LEFT:
+			m_InputAction = std::make_tuple("move", -1, 0);
+			break;
+		case TCODK_RIGHT:
+			m_InputAction = std::make_tuple("move", 1, 0);
+			break;
+		}
 
-	//Check for Escape key or fullscreen sequence
-	if (m_TCODKey.vk == TCODK_ESCAPE)
-	{
-		m_IsRunning = false;
+		HandleInput();
+
+		//Check for Escape key or fullscreen sequence
+		if (m_TCODKey.vk == TCODK_ESCAPE)
+		{
+			m_IsRunning = false;
+		}
+		else if (m_TCODKey.vk == TCODK_ENTER && m_TCODKey.lalt)
+		{
+			m_FullScreen = !m_FullScreen;
+			TCODConsole::setFullscreen(m_FullScreen);
+		}
 	}
-	else if (m_TCODKey.vk == TCODK_ENTER && m_TCODKey.lalt)
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Takes care of handling the input registered in RegisterInput.
+///////////////////////////////////////////////////////////////////////////////
+void Engine::HandleInput()
+{
+	auto [name, dx, dy] = m_InputAction;
+
+	if (name == "move")
 	{
-		m_FullScreen = !m_FullScreen;
-		TCODConsole::setFullscreen(m_FullScreen);
+		auto player = std::find_if(m_Entities.begin(), m_Entities.end(), [](const auto &entity) -> bool
+		{
+			return entity->getName() == "Player";
+		});
+
+		if (player != std::end(m_Entities))
+		{
+			//Check to see if we can move...
+			if (!m_GameMap.isBlocked((*player)->getXPos() + dx, (*player)->getYPos() + dy))
+				(*player)->Move(dx, dy);
+		}
 	}
 }
 

@@ -3,9 +3,11 @@
 #include <libtcod.hpp>
 #include <memory>
 #include <vector>
+#include <tuple>
 
 #include "ecs/Entity.h"
 #include "Renderer.h"
+#include "MapObjects/GameMap.h"
 
 //***************************************************************************//
 // Engine code will be responsible for handling the graphics part of the     //
@@ -26,10 +28,13 @@ public:
 
 	void InitEngine();
 	void Update();
-	void HandleInput();
+	void RegisterInput();
 
 	bool isRunning() { return m_IsRunning; }
 	bool isFullScreen() { return m_FullScreen; }
+
+private:
+	void HandleInput();
 
 private:
 	bool m_IsRunning = { false };
@@ -42,9 +47,11 @@ private:
 	TCOD_console_t m_MainConsole;
 	TCOD_console_t m_OffConsole;
 
-	std::unique_ptr<Entity> m_Player;
 	std::vector<std::unique_ptr<Entity>> m_Entities;
 
+	std::tuple<std::string, int, int> m_InputAction;
+
 	Renderer m_Renderer;
+	Map::CGameMap m_GameMap;
 };
 

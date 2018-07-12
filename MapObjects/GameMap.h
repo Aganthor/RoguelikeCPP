@@ -2,30 +2,36 @@
 
 #include <array>
 #include <cstddef>
+#include <map>
+
+#include <libtcod.hpp>
 
 #include "Tile.h"
 
 namespace Map
 {
-
     const std::size_t MAP_WIDTH = 80;
     const std::size_t MAP_HEIGHT = 45;
 
     class CGameMap
     {
     public:
-    
-    public:
         CGameMap();
-        CGameMap(int w, int h);
         ~CGameMap();
 
         //Getters and setters
-        int getWidth() { return m_Width; }
-        int getHeight() { return m_Height; }
+        const int getWidth() const { return m_Width; }
+        const int getHeight() const { return m_Height; }
         void setWidth(int w) { m_Width = w; }
         void setHeight(int h) { m_Height = h; }
         void setWidthHeight(int w, int h) { m_Width = w; m_Height = h;}
+
+        const TCODColor getColorCode(const std::string& color_id) const;
+
+        //const CTile& getTile(int col, int row) const { return m_GameMap[col][row]; }
+        const CTile& getTile(int col, int row) const { return m_GameMap[row][col]; }
+
+        bool isBlocked(int x, int y);
 
     private:
         void InitTiles(void);
@@ -33,6 +39,8 @@ namespace Map
     private:
         int m_Width;
         int m_Height;
+
+        std::map<std::string, TCODColor> m_ColorDict;
 
         template <class T, size_t ROW, size_t COL>
         using Matrix = std::array<std::array<T, COL>, ROW>;

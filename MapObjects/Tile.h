@@ -3,14 +3,14 @@
 class CTile
 {
 public:
-    CTile();
+    CTile() { };
     CTile(bool block, bool blockSight=false) : m_Blocked(block), m_BlockSight(blockSight)
     {
         //By default, if a tile is blocked, it is blocking sight!
         if (!blockSight)
             m_BlockSight = block;
     }
-    ~CTile();
+    ~CTile() { };
 
     //Getters / setters
     bool isBlocked() { return m_Blocked; }
