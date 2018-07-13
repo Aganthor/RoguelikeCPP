@@ -5,7 +5,9 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/ecs",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/include",
+                "/usr/include",
+                "/usr/include/SDL2"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

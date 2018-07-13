@@ -18,8 +18,4 @@ public:
 
     void RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, const Map::CGameMap& game_map);
     void ClearAll(const std::vector<std::unique_ptr<Entity>>& entities);
-
-private:
-    void DrawEntity(const Entity& entity);
-    void ClearEntity(const Entity& Entity);
 };

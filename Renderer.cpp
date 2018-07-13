@@ -20,20 +20,20 @@ void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, c
     //First, render the map.
     auto height = game_map.getHeight();
     auto width  = game_map.getWidth();
-    for (auto y = 0; y <= height; ++y)
+    for (auto x = 0; x <= width; ++x)
     {
-        for (auto x = 0; x <= width; ++x)
+        for (auto y = 0; y <= height; ++y)
         {
-            auto wall = game_map.getTile(y, x);
-            if (wall.isBlockingSight())
+            auto wall = game_map.getTile(x, y);
+            /*if (wall.isBlockingSight())
                 TCODConsole::root->setCharBackground(y, x, game_map.getColorCode("dark_wall"), TCOD_BKGND_SET);
             else
                 TCODConsole::root->setCharBackground(y, x, game_map.getColorCode("dark_ground"), TCOD_BKGND_SET);            
-            /*if (wall.isBlockingSight())
+                */
+            if (wall.isBlockingSight())
                 TCODConsole::root->setCharBackground(x, y, game_map.getColorCode("dark_wall"), TCOD_BKGND_SET);
             else
                 TCODConsole::root->setCharBackground(x, y, game_map.getColorCode("dark_ground"), TCOD_BKGND_SET);
-            */
         }
     }
 

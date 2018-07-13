@@ -21,17 +21,25 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     void CGameMap::InitTiles(void)
     {
-        for (auto col = 0; col < MAP_HEIGHT; ++col)
+        /*for (auto y = 0; y <= MAP_HEIGHT; ++y)
         {
-            for (auto row = 0; row < MAP_WIDTH; ++row)
+            for (auto x = 0; x <= MAP_WIDTH; ++x)
             {
-                m_GameMap[row][col].setBlocked(false);
+                m_GameMap[x][y].setBlocked(false);
             }
         }
+        */
+        for (auto x = 0; x <= MAP_WIDTH; ++x)
+        {
+            for (auto y = 0; y <= MAP_HEIGHT; ++y)
+            {
+                m_GameMap[x][y].setBlocked(false);
+            }
+        }       
         
-        m_GameMap[22][30].setBoth(true, true);
-        m_GameMap[22][31].setBoth(true, true);
-        m_GameMap[22][32].setBoth(true, true);    
+        m_GameMap[30][22].setBoth(true, true);
+        m_GameMap[31][22].setBoth(true, true);
+        m_GameMap[32][22].setBoth(true, true);    
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -52,8 +60,7 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     bool CGameMap::isBlocked(int x, int y)
     {
-        //if (m_GameMap[x][y].isBlocked())
-        if (m_GameMap[y][x].isBlocked())
+        if (m_GameMap[x][y].isBlocked())
             return true;
         else
             return false;

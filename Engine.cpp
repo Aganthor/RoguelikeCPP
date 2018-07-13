@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 #include <algorithm>
+#include <iostream>
 
 using namespace Map;
 
@@ -16,7 +17,7 @@ Engine::~Engine()
 void Engine::InitEngine()
 {
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
-	TCODConsole::initRoot(80, 50, "Roguelike tutorial in C++", false);
+	TCODConsole::initRoot(80, 50, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
 	
 	m_MainConsole = TCOD_console_new(Engine::MAP_WIDTH, Engine::MAP_HEIGHT);
 	m_OffConsole = TCOD_console_new(Engine::MAP_WIDTH, Engine::MAP_HEIGHT);

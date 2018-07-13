@@ -28,8 +28,7 @@ namespace Map
 
         const TCODColor getColorCode(const std::string& color_id) const;
 
-        //const CTile& getTile(int col, int row) const { return m_GameMap[col][row]; }
-        const CTile& getTile(int col, int row) const { return m_GameMap[row][col]; }
+        const CTile& getTile(int x, int y) const { return m_GameMap[x][y]; }
 
         bool isBlocked(int x, int y);
 
@@ -43,7 +42,13 @@ namespace Map
         std::map<std::string, TCODColor> m_ColorDict;
 
         template <class T, size_t ROW, size_t COL>
-        using Matrix = std::array<std::array<T, COL>, ROW>;
-        Matrix<CTile, MAP_WIDTH, MAP_HEIGHT> m_GameMap;
+        //using Matrix = std::array<std::array<T, COL>, ROW>;
+        //Matrix<CTile, MAP_HEIGHT, MAP_WIDTH> m_GameMap;
+        using NativeMatrix = T[ROW][COL];
+        NativeMatrix<CTile, MAP_WIDTH, MAP_HEIGHT> m_GameMap;
+
+        //https://gitlab.com/DontEatSoapDudley/roguelikedev_challenge/blob/week2/map.hh
+        //std::vector<std::vector<Tile>> tiles;
+        //Change to make it a vector<vector<CTiles>>
     };
 }
