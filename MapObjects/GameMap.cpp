@@ -4,6 +4,7 @@ namespace Map
 {
     CGameMap::CGameMap() : m_Width { MAP_WIDTH }, m_Height { MAP_HEIGHT }
     {
+        ResizeGameMap();
         InitTiles();
 
         //Prepare the colors
@@ -21,25 +22,28 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     void CGameMap::InitTiles(void)
     {
-        /*for (auto y = 0; y <= MAP_HEIGHT; ++y)
+        for (auto y = 0; y < MAP_HEIGHT; ++y)
         {
-            for (auto x = 0; x <= MAP_WIDTH; ++x)
+            for (auto x = 0; x < MAP_WIDTH; ++x)
             {
                 m_GameMap[x][y].setBlocked(false);
             }
-        }
-        */
-        for (auto x = 0; x <= MAP_WIDTH; ++x)
-        {
-            for (auto y = 0; y <= MAP_HEIGHT; ++y)
-            {
-                m_GameMap[x][y].setBlocked(false);
-            }
-        }       
+        }   
         
         m_GameMap[30][22].setBoth(true, true);
         m_GameMap[31][22].setBoth(true, true);
         m_GameMap[32][22].setBoth(true, true);    
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Resize the game map vector according to the width and height member
+    // variables.
+    ///////////////////////////////////////////////////////////////////////////
+    void CGameMap::ResizeGameMap(void)
+    {
+        m_GameMap.resize(m_Width);
+        for (auto &col : m_GameMap)
+            col.resize(m_Height);
     }
 
     ///////////////////////////////////////////////////////////////////////////

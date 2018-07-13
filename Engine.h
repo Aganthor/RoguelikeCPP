@@ -44,8 +44,8 @@ private:
 	TCOD_event_t m_TCODEvent;
 
 	//Consoles
-	TCOD_console_t m_MainConsole;
-	TCOD_console_t m_OffConsole;
+	//TCOD_console_t m_MainConsole;
+	//TCOD_console_t m_OffConsole;
 
 	std::vector<std::unique_ptr<Entity>> m_Entities;
 
