@@ -8,6 +8,7 @@
 #include <libtcod.hpp>
 
 #include "Tile.h"
+#include "Rect.h"
 
 namespace Map
 {
@@ -20,22 +21,22 @@ namespace Map
         CGameMap();
         ~CGameMap();
 
+        void MakeMap(void);
+
         //Getters and setters
         const int getWidth() const { return m_Width; }
         const int getHeight() const { return m_Height; }
         void setWidth(int w) { m_Width = w; ResizeGameMap(); }
         void setHeight(int h) { m_Height = h; ResizeGameMap(); }
         void setWidthHeight(int w, int h) { m_Width = w; m_Height = h; ResizeGameMap(); }
-
         const TCODColor getColorCode(const std::string& color_id) const;
-
         const CTile& getTile(int x, int y) const { return m_GameMap[x][y]; }
-
         bool isBlocked(int x, int y);
 
     private:
         void InitTiles(void);
         void ResizeGameMap(void);
+        void CreateRoom(const CRect& room);
 
     private:
         int m_Width;

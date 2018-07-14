@@ -26,13 +26,9 @@ namespace Map
         {
             for (auto x = 0; x < MAP_WIDTH; ++x)
             {
-                m_GameMap[x][y].setBlocked(false);
+                m_GameMap[x][y].setBlocked(true);
             }
         }   
-        
-        m_GameMap[30][22].setBoth(true, true);
-        m_GameMap[31][22].setBoth(true, true);
-        m_GameMap[32][22].setBoth(true, true);    
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -47,6 +43,26 @@ namespace Map
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // Function to actually create a map full of rooms and corridors.
+    ///////////////////////////////////////////////////////////////////////////
+    void CGameMap::MakeMap(void)
+    {
+        CreateRoom(CRect(20, 15, 10, 15));
+        CreateRoom(CRect(35, 15, 10, 15));
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Function that will create a room in the map, From (x1,y1) to (x2,y2)
+    // we'll set the tiles to be walkable so that the player can walk in it.
+    ///////////////////////////////////////////////////////////////////////////
+    void CGameMap::CreateRoom(const CRect& room)
+    {
+        for (auto x = room.getX1() + 1; x < room.getX2(); ++x)
+            for (auto y = room.getY1() + 1; y < room.getY2(); ++y)            
+                m_GameMap[x][y].setBoth(false, false);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // Checks the color dictionnary to see if a certain color is present.
     ///////////////////////////////////////////////////////////////////////////
     const TCODColor CGameMap::getColorCode(const std::string& color_id) const
@@ -55,7 +71,7 @@ namespace Map
         if (color != m_ColorDict.end())
             return color->second;
         else
-            return TCODColor(0, 0, 0);
+            return TCOD_color_RGB(0, 0, 0);
     }
 
     ///////////////////////////////////////////////////////////////////////////

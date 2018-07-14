@@ -1,6 +1,5 @@
 #include "Entity.h"
 
-#include <libtcod.hpp>
 #include <cmath>
 
 Entity::Entity(int x, int y, const std::string& name, char visual, TCODColor color, bool blocks)

@@ -3,7 +3,9 @@
 #include <vector>
 #include <memory>
 
-// Forward declare the Entity class...
+#include <libtcod.hpp>
+
+// Forward declare the Entity and CGameMap classes...
 class Entity;
 namespace Map
 {
@@ -18,4 +20,13 @@ public:
 
     void RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, const Map::CGameMap& game_map);
     void ClearAll(const std::vector<std::unique_ptr<Entity>>& entities);
+
+    void SetRenderSize(int w, int h) { m_Width = w; m_Height = h; }
+
+private:
+    int m_Width;
+    int m_Height;
+    //Consoles
+	std::unique_ptr<TCODConsole> m_MainConsole;
+	//TCOD_console_t m_OffConsole;
 };

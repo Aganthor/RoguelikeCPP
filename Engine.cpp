@@ -5,10 +5,14 @@
 
 using namespace Map;
 
+Engine::Engine()
+{
+	m_Renderer.SetRenderSize(MAP_WIDTH, MAP_HEIGHT);
+}
+
 Engine::~Engine()
 {
-	//TCOD_console_delete(m_MainConsole);
-	//TCOD_console_delete(m_OffConsole);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -17,14 +21,12 @@ Engine::~Engine()
 void Engine::InitEngine()
 {
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
-	TCODConsole::initRoot(80, 50, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
-	//TCODConsole::initRoot(80, 50, "Roguelike tutorial in C++", false);
-	
-	//m_MainConsole = TCOD_console_new(Engine::MAP_WIDTH, Engine::MAP_HEIGHT);
-	//m_OffConsole = TCOD_console_new(Engine::MAP_WIDTH, Engine::MAP_HEIGHT);
+	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
 
 	m_Entities.push_back(std::make_unique<Entity>(30, 22, "Player", '@', TCODColor::white));
-	m_Entities.push_back(std::make_unique<Entity>(23, 23, "Troll", 'T', TCODColor::green));
+	//m_Entities.push_back(std::make_unique<Entity>(23, 23, "Troll", 'T', TCODColor::green));
+
+	m_GameMap.MakeMap();
 
 	m_IsRunning = true;
 }

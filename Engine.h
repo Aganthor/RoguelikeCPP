@@ -23,7 +23,7 @@ public:
 	const int MAP_HEIGHT = 45;
 
 public:
-	Engine() {};
+	Engine();
 	~Engine();
 
 	void InitEngine();
@@ -42,10 +42,6 @@ private:
 	TCOD_key_t m_TCODKey;
 	TCOD_mouse_t m_TCODMouse;
 	TCOD_event_t m_TCODEvent;
-
-	//Consoles
-	//TCOD_console_t m_MainConsole;
-	//TCOD_console_t m_OffConsole;
 
 	std::vector<std::unique_ptr<Entity>> m_Entities;
 
