@@ -1,6 +1,7 @@
 #pragma once
 
-//#include <array>
+#include <memory>
+#include <random>
 #include <vector>
 #include <cstddef>
 #include <map>
@@ -10,10 +11,28 @@
 #include "Tile.h"
 #include "Rect.h"
 
+class RandomInt
+{
+public:
+    std::random_device m_Rd;
+    std::mt19937 m_Mt;
+    std::uniform_int_distribution<int> m_Dist;
+
+    RandomInt() : m_Rd{}, m_Mt{m_Rd()} {}
+
+    int MakeRnd(int min, int max)
+    {
+        //m_Dist
+        return 0;
+    }
+
+};
+
 namespace Map
 {
     const std::size_t MAP_WIDTH = 80;
     const std::size_t MAP_HEIGHT = 45;
+    const std::size_t MAX_ROOMS = 30;
 
     class CGameMap
     {
@@ -37,23 +56,18 @@ namespace Map
         void InitTiles(void);
         void ResizeGameMap(void);
         void CreateRoom(const CRect& room);
+        void CreateHorizontalTunnel(int x1, int x2, int y);
+        void CreateVerticalTunnel(int y1, int y2, int x);
 
     private:
         int m_Width;
         int m_Height;
 
+        int m_RoomMaxSize;
+        int m_RoomMinSize;
+
         std::map<std::string, TCODColor> m_ColorDict;
-
-        //template <class T, size_t ROW, size_t COL>
-        //using Matrix = std::array<std::array<T, COL>, ROW>;
-        //Matrix<CTile, MAP_HEIGHT, MAP_WIDTH> m_GameMap;
-        //using NativeMatrix = T[ROW][COL];
-        //NativeMatrix<CTile, MAP_WIDTH, MAP_HEIGHT> m_GameMap;
-
-        //https://gitlab.com/DontEatSoapDudley/roguelikedev_challenge/blob/week2/map.hh
-        //std::vector<std::vector<Tile>> tiles;
-        //Change to make it a vector<vector<CTiles>>
         std::vector<std::vector<CTile>> m_GameMap;
-
+        std::vector<std::unique_ptr<CRect>> m_Rooms;
     };
 }

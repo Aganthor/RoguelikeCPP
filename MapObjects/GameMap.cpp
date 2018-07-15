@@ -1,8 +1,11 @@
 #include "GameMap.h"
 
+#include <algorithm>
+
 namespace Map
 {
-    CGameMap::CGameMap() : m_Width { MAP_WIDTH }, m_Height { MAP_HEIGHT }
+    CGameMap::CGameMap() : m_Width { MAP_WIDTH }, m_Height { MAP_HEIGHT },
+                           m_RoomMaxSize {10}, m_RoomMinSize {6}
     {
         ResizeGameMap();
         InitTiles();
@@ -10,6 +13,9 @@ namespace Map
         //Prepare the colors for our different tiles.
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_wall", TCODColor(0, 0, 100)));
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_ground", TCODColor(50, 50, 150)));
+
+        //Random number generator
+        
     }
 
     CGameMap::~CGameMap()
@@ -49,6 +55,7 @@ namespace Map
     {
         CreateRoom(CRect(20, 15, 10, 15));
         CreateRoom(CRect(35, 15, 10, 15));
+        CreateHorizontalTunnel(25, 40, 23);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -60,6 +67,24 @@ namespace Map
         for (auto x = room.getX1() + 1; x < room.getX2(); ++x)
             for (auto y = room.getY1() + 1; y < room.getY2(); ++y)            
                 m_GameMap[x][y].setFloor();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Creates an horizontal tunnel between two rooms.
+    ///////////////////////////////////////////////////////////////////////////
+    void CGameMap::CreateHorizontalTunnel(int x1, int x2, int y)
+    {
+        for (auto x = std::min(x1,x2); x < std::max(x1,x2) + 1; ++x)
+            m_GameMap[x][y].setFloor();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Creates a vertical tunnel between two rooms.
+    ///////////////////////////////////////////////////////////////////////////
+    void CGameMap::CreateVerticalTunnel(int y1, int y2, int x)
+    {
+        for (auto y = std::min(y1,y2); y < std::max(y1,y2) + 1; ++y)
+            m_GameMap[x][y].setFloor();
     }
 
     ///////////////////////////////////////////////////////////////////////////
