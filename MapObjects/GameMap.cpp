@@ -7,7 +7,7 @@ namespace Map
         ResizeGameMap();
         InitTiles();
 
-        //Prepare the colors
+        //Prepare the colors for our different tiles.
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_wall", TCODColor(0, 0, 100)));
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_ground", TCODColor(50, 50, 150)));
     }
@@ -59,7 +59,7 @@ namespace Map
     {
         for (auto x = room.getX1() + 1; x < room.getX2(); ++x)
             for (auto y = room.getY1() + 1; y < room.getY2(); ++y)            
-                m_GameMap[x][y].setBoth(false, false);
+                m_GameMap[x][y].setFloor();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ namespace Map
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // Checks to see if the player can move therefor he's not blocked by a 
+    // Checks to see if the player can move therefore he's not blocked by a 
     // wall. Returns true if he can move.
     ///////////////////////////////////////////////////////////////////////////
     bool CGameMap::isBlocked(int x, int y)

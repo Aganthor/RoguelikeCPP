@@ -3,11 +3,11 @@
 class CTile
 {
 public:
-    CTile() { };
+    CTile() {};
     CTile(bool block, bool blockSight=false) : m_Blocked(block), m_BlockSight(blockSight)
     {
         //By default, if a tile is blocked, it is blocking sight!
-        if (!blockSight)
+        if (block)
             m_BlockSight = block;
     }
     ~CTile() { };
@@ -15,10 +15,15 @@ public:
     //Getters / setters
     bool isBlocked() { return m_Blocked; }
     bool isBlockingSight() { return m_BlockSight;}
-
-    void setBlocked(bool b) { m_Blocked = b; }
+    void setBlocked(bool b) 
+    { 
+        m_Blocked = b; 
+        if (b)
+            m_BlockSight = true;
+    }
     void setBlockSight(bool b) { m_BlockSight = b; }
-    void setBoth(bool block, bool block_sight) { m_Blocked = block; m_BlockSight = block_sight;}
+    void setWall(void) { m_Blocked = true; m_BlockSight = true; }
+    void setFloor(void) { m_Blocked = false; m_BlockSight = false; }
 
 private:
     bool m_Blocked;

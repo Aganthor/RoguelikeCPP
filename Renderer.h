@@ -28,5 +28,5 @@ private:
     int m_Height;
     //Consoles
 	std::unique_ptr<TCODConsole> m_MainConsole;
-	//TCOD_console_t m_OffConsole;
+	std::unique_ptr<TCODConsole> m_OffConsole;
 };
