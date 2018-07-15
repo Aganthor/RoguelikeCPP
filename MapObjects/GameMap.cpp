@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include "../Utility/Random.h"
+
 namespace Map
 {
     CGameMap::CGameMap() : m_Width { MAP_WIDTH }, m_Height { MAP_HEIGHT },
@@ -15,7 +17,7 @@ namespace Map
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_ground", TCODColor(50, 50, 150)));
 
         //Random number generator
-        
+        Random::init();
     }
 
     CGameMap::~CGameMap()
@@ -53,9 +55,33 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     void CGameMap::MakeMap(void)
     {
+        int num_rooms = {0};
+
+        for (auto r = 0; r < MAX_ROOMS; ++r)
+        {
+            //Generate random room size.
+            auto w = Random::intInRange(m_RoomMinSize, m_RoomMaxSize);
+            auto h = Random::intInRange(m_RoomMinSize, m_RoomMaxSize);
+
+            //Generate random position without going outside the map.
+            auto x = Random::intInRange(0, MAP_WIDTH - w - 1);
+            auto y = Random::intInRange(0, MAP_HEIGHT - h - 1);
+
+            auto new_room = std::make_unique<CRect>(x, y, w, h);
+
+            //Run through the other rooms and see if they intersect with this one.
+            for (auto room : m_Rooms)
+            {
+                if (new_room->Intersect((*room))
+                    break;
+            }
+
+        }
+        /*
         CreateRoom(CRect(20, 15, 10, 15));
         CreateRoom(CRect(35, 15, 10, 15));
         CreateHorizontalTunnel(25, 40, 23);
+        */
     }
 
     ///////////////////////////////////////////////////////////////////////////

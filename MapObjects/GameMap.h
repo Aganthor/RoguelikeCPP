@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <random>
 #include <vector>
 #include <cstddef>
 #include <map>
@@ -10,23 +9,6 @@
 
 #include "Tile.h"
 #include "Rect.h"
-
-class RandomInt
-{
-public:
-    std::random_device m_Rd;
-    std::mt19937 m_Mt;
-    std::uniform_int_distribution<int> m_Dist;
-
-    RandomInt() : m_Rd{}, m_Mt{m_Rd()} {}
-
-    int MakeRnd(int min, int max)
-    {
-        //m_Dist
-        return 0;
-    }
-
-};
 
 namespace Map
 {
