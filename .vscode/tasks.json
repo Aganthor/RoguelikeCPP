@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "./Roguelike",
             "options": {
-                "cwd": "${workspaceFolder}/RogueLike/build/"
+                "cwd": "${workspaceFolder}/build/"
             },
             "problemMatcher": []
         }

@@ -69,26 +69,59 @@ namespace Map
 
             auto new_room = std::make_unique<CRect>(x, y, w, h);
 
-            //Run through the other rooms and see if they intersect with this one.
-            for (auto room : m_Rooms)
+            if (num_rooms == 0)
             {
-                if (new_room->Intersect((*room))
-                    break;
+                //It'S our first room!!!
+                //TODO : we add the player here!
+                CreateRoom(*new_room);
+                ++num_rooms;
+                m_Rooms.push_back(std::move(new_room));
             }
+            else
+            {
+                //Run through the other rooms and see if they intersect with this one.
+                for (auto &room : m_Rooms)
+                {
+                    if (new_room->Intersect(*room))
+                    {
+                        new_room.release();
+                        break;
+                    }
+                    else
+                    {
+                        CreateRoom(*new_room);
+                        auto [new_x, new_y] = new_room->getCenter();
 
+                        //Connect it to the previous one.
+                        //Get the center of the previous room
+                        auto [prev_x, prev_y] = m_Rooms[num_rooms - 1]->getCenter();
+
+                        //Flip a coin: horizontal or vertical tunnel.
+                        if (Random::intInRange(0, 1) == 1)
+                        {
+                            //First move horizontally, then  vertically.
+                            CreateHorizontalTunnel(prev_x, new_x, prev_y);
+                            CreateVerticalTunnel(prev_y, new_y, new_x);
+                        }
+                        else
+                        {
+                            //First move vertically, then horizontally.
+                            CreateVerticalTunnel(prev_y, new_y, prev_x);
+                            CreateHorizontalTunnel(prev_x, new_x, new_y);
+                        }
+                        ++num_rooms;
+                        m_Rooms.push_back(std::move(new_room));                        
+                    }
+                }
+            }
         }
-        /*
-        CreateRoom(CRect(20, 15, 10, 15));
-        CreateRoom(CRect(35, 15, 10, 15));
-        CreateHorizontalTunnel(25, 40, 23);
-        */
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // Function that will create a room in the map, From (x1,y1) to (x2,y2)
     // we'll set the tiles to be walkable so that the player can walk in it.
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::CreateRoom(const CRect& room)
+    void CGameMap::CreateRoom(CRect& room)
     {
         for (auto x = room.getX1() + 1; x < room.getX2(); ++x)
             for (auto y = room.getY1() + 1; y < room.getY2(); ++y)            

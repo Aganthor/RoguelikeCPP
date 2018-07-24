@@ -37,7 +37,7 @@ namespace Map
     private:
         void InitTiles(void);
         void ResizeGameMap(void);
-        void CreateRoom(const CRect& room);
+        void CreateRoom(CRect& room);
         void CreateHorizontalTunnel(int x1, int x2, int y);
         void CreateVerticalTunnel(int y1, int y2, int x);
 
