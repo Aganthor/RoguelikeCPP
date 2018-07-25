@@ -1,6 +1,7 @@
 #include "GameMap.h"
 
 #include <algorithm>
+#include <iostream>
 
 #include "../Utility/Random.h"
 
@@ -55,7 +56,8 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     void CGameMap::MakeMap(void)
     {
-        int num_rooms = {0};
+        int num_rooms {0};
+        bool intersect {false};
 
         for (auto r = 0; r < MAX_ROOMS; ++r)
         {
@@ -80,41 +82,45 @@ namespace Map
             else
             {
                 //Run through the other rooms and see if they intersect with this one.
+                //If the new room intersect, toss it out.
                 for (auto &room : m_Rooms)
                 {
                     if (new_room->Intersect(*room))
                     {
                         new_room.release();
+                        intersect = true;
                         break;
+                    }
+                }
+                if (!intersect)
+                {
+                    CreateRoom(*new_room);
+                    auto [new_x, new_y] = new_room->getCenter();
+
+                    //Connect it to the previous one.
+                    //Get the center of the previous room
+                    auto [prev_x, prev_y] = m_Rooms[num_rooms - 1]->getCenter();
+
+                    //Flip a coin: horizontal or vertical tunnel.
+                    if (Random::intInRange(0, 1) == 1)
+                    {
+                        //First move horizontally, then  vertically.
+                        CreateHorizontalTunnel(prev_x, new_x, prev_y);
+                        CreateVerticalTunnel(prev_y, new_y, new_x);
                     }
                     else
                     {
-                        CreateRoom(*new_room);
-                        auto [new_x, new_y] = new_room->getCenter();
-
-                        //Connect it to the previous one.
-                        //Get the center of the previous room
-                        auto [prev_x, prev_y] = m_Rooms[num_rooms - 1]->getCenter();
-
-                        //Flip a coin: horizontal or vertical tunnel.
-                        if (Random::intInRange(0, 1) == 1)
-                        {
-                            //First move horizontally, then  vertically.
-                            CreateHorizontalTunnel(prev_x, new_x, prev_y);
-                            CreateVerticalTunnel(prev_y, new_y, new_x);
-                        }
-                        else
-                        {
-                            //First move vertically, then horizontally.
-                            CreateVerticalTunnel(prev_y, new_y, prev_x);
-                            CreateHorizontalTunnel(prev_x, new_x, new_y);
-                        }
-                        ++num_rooms;
-                        m_Rooms.push_back(std::move(new_room));                        
+                        //First move vertically, then horizontally.
+                        CreateVerticalTunnel(prev_y, new_y, prev_x);
+                        CreateHorizontalTunnel(prev_x, new_x, new_y);
                     }
+                    ++num_rooms;
+                    m_Rooms.push_back(std::move(new_room));    
+                    intersect = false;                    
                 }
             }
         }
+        std::cout << "Created " << num_rooms << " rooms." << std::endl;
     }
 
     ///////////////////////////////////////////////////////////////////////////
