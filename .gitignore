@@ -31,6 +31,9 @@
 *.out
 *.app
 
+#Kdev
+*.kdev4
+
 #CMake stuff
 CMakeCache.txt
 CMakeFiles
