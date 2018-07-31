@@ -16,9 +16,6 @@ namespace Map
         //Prepare the colors for our different tiles.
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_wall", TCODColor(0, 0, 100)));
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_ground", TCODColor(50, 50, 150)));
-
-        //Random number generator
-        Random::init();
     }
 
     CGameMap::~CGameMap()

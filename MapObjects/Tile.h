@@ -4,7 +4,7 @@ class CTile
 {
 public:
     CTile() {};
-    CTile(bool block, bool blockSight=false) : m_Blocked(block), m_BlockSight(blockSight)
+    CTile(bool block, bool blockSight=false) : m_Blocked {block}, m_BlockSight {blockSight}
     {
         //By default, if a tile is blocked, it is blocking sight!
         if (block)

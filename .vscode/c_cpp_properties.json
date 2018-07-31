@@ -6,6 +6,8 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/ecs",
                 "${workspaceFolder}/include",
+                "${workspaceFolder}/Utility",
+                "${workspaceFolder}/MapObjects",
                 "/usr/include",
                 "/usr/include/SDL2"
             ],

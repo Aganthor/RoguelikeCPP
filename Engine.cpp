@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <iostream>
 
+#include "../Utility/Random.h"
+
 using namespace Map;
 
 Engine::Engine()
@@ -20,6 +22,9 @@ Engine::~Engine()
 ///////////////////////////////////////////////////////////////////////////////
 void Engine::InitEngine()
 {
+    //Initialize the random number generator.
+	Random::init();
+
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
 	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
 

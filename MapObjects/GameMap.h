@@ -34,6 +34,8 @@ namespace Map
         const CTile& getTile(int x, int y) const { return m_GameMap[x][y]; }
         bool isBlocked(int x, int y);
 
+        const CRect& getFirstRoom(void);
+
     private:
         void InitTiles(void);
         void ResizeGameMap(void);

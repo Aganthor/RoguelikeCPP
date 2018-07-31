@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.11)
 
 project(Roguelike)
 
@@ -9,6 +9,8 @@ find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 include_directories(include/)
+include_directories(Utility/)
+include_directories(MapObjects/)
 
 add_subdirectory(ecs)
 add_subdirectory(MapObjects)
