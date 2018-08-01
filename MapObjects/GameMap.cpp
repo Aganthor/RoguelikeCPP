@@ -14,14 +14,17 @@ namespace Map
         ResizeGameMap();
         InitTiles();
 
+        m_FovMap = std::make_unique<TCODMap>(m_Width, m_Height);
+
         //Prepare the colors for our different tiles.
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_wall", TCODColor(0, 0, 100)));
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_ground", TCODColor(50, 50, 150)));
+        m_ColorDict.insert(std::make_pair<std::string, TCODColor>("light_wall", TCODColor(130, 110, 50)));
+        m_ColorDict.insert(std::make_pair<std::string, TCODColor>("light_ground", TCODColor(200, 180, 50)));        
     }
 
     CGameMap::~CGameMap()
     {
-        std::cout << "Deleting GameMap...\n";
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -39,6 +42,16 @@ namespace Map
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // Initialize the Fov map!
+    ///////////////////////////////////////////////////////////////////////////
+    void CGameMap::InitFovMap(void)
+    {
+        for (auto y = 0; y < m_Height; ++y)
+            for (auto x = 0; x < m_Width; ++x)
+                m_FovMap->setProperties(x, y, !m_GameMap[x][y].isBlockingSight(), !m_GameMap[x][y].isBlocked());
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // Resize the game map vector according to the width and height member
     // variables.
     ///////////////////////////////////////////////////////////////////////////
@@ -47,6 +60,12 @@ namespace Map
         m_GameMap.resize(m_Width);
         for (auto &col : m_GameMap)
             col.resize(m_Height);
+
+        //Delete the old Fov Map and create a now one.
+        auto fovMapPtr = m_FovMap.release();
+        if (fovMapPtr)
+            delete fovMapPtr;
+        m_FovMap = std::make_unique<TCODMap>(m_Width, m_Height);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -121,6 +140,13 @@ namespace Map
             }
         }
         std::cout << "Created " << num_rooms << " rooms." << std::endl;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    void CGameMap::RecomputeFov(int x, int y, int radius, bool light_walls, TCOD_fov_algorithm_t algorithm)
+    {
+        m_FovMap->computeFov(x, y, radius, light_walls, algorithm);
     }
 
     ///////////////////////////////////////////////////////////////////////////

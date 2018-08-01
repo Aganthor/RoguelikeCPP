@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 #include <algorithm>
-#include <iostream>
+//#include <iostream>
 
 #include "../Utility/Random.h"
 
@@ -14,7 +14,6 @@ Engine::Engine()
 
 Engine::~Engine()
 {
-	std::cout << "Deleting Engine...\n";
 }
 
 ///////////////////////////////////////////////////////////////////////////////

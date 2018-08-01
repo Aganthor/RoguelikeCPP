@@ -17,6 +17,10 @@ namespace Map
     const std::size_t MAP_HEIGHT = 45;
     const std::size_t MAX_ROOMS = 30;
 
+    const std::size_t FOV_RADIUS = 10;
+    const bool FOV_LIGHT_WALLS = true;
+    const std::size_t FOV_ALGORITHM = 0;
+
     class CGameMap
     {
     public:
@@ -24,7 +28,8 @@ namespace Map
         ~CGameMap();
 
         void MakeMap(void);
-
+        void RecomputeFov(int x, int y, int radius, bool light_walls = true, TCOD_fov_algorithm_t algorithm = FOV_BASIC);
+        
         //Getters and setters
         const int getWidth() const { return m_Width; }
         const int getHeight() const { return m_Height; }
@@ -43,6 +48,7 @@ namespace Map
 
     private:
         void InitTiles(void);
+        void InitFovMap(void);
         void ResizeGameMap(void);
         void CreateRoom(CRect& room);
         void CreateHorizontalTunnel(int x1, int x2, int y);
@@ -54,6 +60,8 @@ namespace Map
 
         int m_RoomMaxSize;
         int m_RoomMinSize;
+
+        std::unique_ptr<TCODMap> m_FovMap;
 
         std::map<std::string, TCODColor> m_ColorDict;
         std::vector<std::vector<CTile>> m_GameMap;

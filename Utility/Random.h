@@ -19,7 +19,10 @@ namespace Random
         public:
             Generator()
             {
-                m_randomEngine.seed(std::time(nullptr));
+                //m_randomEngine.seed(std::time(nullptr));
+                std::random_device rd;
+                //randomEngine.seed(std::time(nullptr));
+                m_randomEngine.seed(rd());                
             }
 
             int64_t intInRange(int64_t low, int64_t high)
