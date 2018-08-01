@@ -102,7 +102,7 @@ namespace Map
                     auto [prev_x, prev_y] = m_Rooms[num_rooms - 1]->getCenter();
 
                     //Flip a coin: horizontal or vertical tunnel.
-                    if (Random::intInRange(0, 1) == 1)
+                    if (Random::flipACoin())
                     {
                         //First move horizontally, then  vertically.
                         CreateHorizontalTunnel(prev_x, new_x, prev_y);

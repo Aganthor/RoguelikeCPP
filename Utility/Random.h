@@ -11,6 +11,7 @@ namespace Random
 
     int64_t intInRange(int64_t low, int64_t high);
     float floatInRange(float low, float high);
+    bool flipACoin(void);
 
     template<typename Engine>
     class Generator
@@ -34,6 +35,13 @@ namespace Random
 
                 return dist(m_randomEngine);
             }
+
+            bool flipACoin(void)
+            {
+                std::bernoulli_distribution dist(0.5);
+
+                return dist(m_randomEngine);
+            }            
 
             template<typename T>
             T numberInRange(T low, T high)

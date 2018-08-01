@@ -8,7 +8,9 @@ namespace Random
 
     void init()
     {
-        randomEngine.seed(std::time(nullptr));
+        std::random_device rd;
+        //randomEngine.seed(std::time(nullptr));
+        randomEngine.seed(rd());
     }
 
     int64_t intInRange(int64_t low, int64_t high)
@@ -21,6 +23,13 @@ namespace Random
     float floatInRange(float low, float high)
     {
         std::uniform_real_distribution<float> dist(low, high);
+
+        return dist(randomEngine);
+    }
+
+    bool flipACoin(void)
+    {
+        std::bernoulli_distribution dist(0.5);
 
         return dist(randomEngine);
     }

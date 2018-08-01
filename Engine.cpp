@@ -32,7 +32,6 @@ void Engine::InitEngine()
 
 	//Place our player in the first room.
 	auto [x, y] = m_GameMap.getFirstRoom().getCenter();
-//	auto [x, y] = room.getCenter();
 	m_Entities.push_back(std::make_unique<Entity>(x, y, "Player", '@', TCODColor::white));
 
 	m_IsRunning = true;
