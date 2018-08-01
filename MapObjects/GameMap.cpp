@@ -21,7 +21,7 @@ namespace Map
 
     CGameMap::~CGameMap()
     {
-
+        std::cout << "Deleting GameMap...\n";
     }
 
     ///////////////////////////////////////////////////////////////////////////

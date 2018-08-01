@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include <iostream>
+
 #include "Engine.h"
 
 
@@ -10,6 +12,7 @@ Game::Game()
 
 Game::~Game()
 {
+	std::cout << "Deleting Game...\n";
 }
 
 void Game::run()

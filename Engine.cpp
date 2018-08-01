@@ -14,7 +14,7 @@ Engine::Engine()
 
 Engine::~Engine()
 {
-
+	std::cout << "Deleting Engine...\n";
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -26,12 +26,14 @@ void Engine::InitEngine()
 	Random::init();
 
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
-	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
-
-	m_Entities.push_back(std::make_unique<Entity>(MAP_WIDTH / 2, MAP_HEIGHT / 2, "Player", '@', TCODColor::white));
-	//m_Entities.push_back(std::make_unique<Entity>(23, 23, "Troll", 'T', TCODColor::green));
+	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false);//, TCOD_RENDERER_OPENGL);
 
 	m_GameMap.MakeMap();
+
+	//Place our player in the first room.
+	auto [x, y] = m_GameMap.getFirstRoom().getCenter();
+//	auto [x, y] = room.getCenter();
+	m_Entities.push_back(std::make_unique<Entity>(x, y, "Player", '@', TCODColor::white));
 
 	m_IsRunning = true;
 }
@@ -97,7 +99,7 @@ void Engine::HandleInput()
 
 	if (action == "move")
 	{
-		auto player = std::find_if(m_Entities.begin(), m_Entities.end(), [](const auto &entity) -> bool
+		auto player = std::find_if(m_Entities.begin(), m_Entities.end(), [](const auto &entity)// -> bool
 		{
 			return entity->getName() == "Player";
 		});

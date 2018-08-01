@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+#include <iostream>
+
 #include <libtcod.hpp>
 
 #include "ecs/Entity.h"
@@ -9,11 +11,12 @@
 Renderer::Renderer()
 {
     m_MainConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
-	m_OffConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
+	//m_OffConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
 }
 
 Renderer::~Renderer()
 {
+    std::cout << "Deleting renderer...\n";
 }
 
 void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, const Map::CGameMap& game_map)

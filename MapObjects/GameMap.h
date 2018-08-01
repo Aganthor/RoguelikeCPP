@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstddef>
 #include <map>
+#include <cassert>
 
 #include <libtcod.hpp>
 
@@ -34,7 +35,11 @@ namespace Map
         const CTile& getTile(int x, int y) const { return m_GameMap[x][y]; }
         bool isBlocked(int x, int y);
 
-        const CRect& getFirstRoom(void);
+        const CRect& getFirstRoom(void)
+        {
+            assert(m_Rooms.size() > 1);
+            return *m_Rooms[0];
+        }
 
     private:
         void InitTiles(void);
