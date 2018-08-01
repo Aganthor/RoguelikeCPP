@@ -85,7 +85,9 @@ namespace Map
                 {
                     if (new_room->Intersect(*room))
                     {
-                        new_room.release();
+                        auto ptr = new_room.release();
+						if (ptr)
+							delete ptr;
                         intersect = true;
                         break;
                     }
