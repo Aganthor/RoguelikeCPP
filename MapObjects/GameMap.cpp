@@ -9,7 +9,8 @@
 namespace Map
 {
     CGameMap::CGameMap() : m_Width { MAP_WIDTH }, m_Height { MAP_HEIGHT },
-                           m_RoomMaxSize {10}, m_RoomMinSize {6}
+                           m_RoomMaxSize {10}, m_RoomMinSize {6},
+                           m_RecomputeFov {true}
     {
         ResizeGameMap();
         InitTiles();
@@ -144,9 +145,9 @@ namespace Map
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::RecomputeFov(int x, int y, int radius, bool light_walls, TCOD_fov_algorithm_t algorithm)
+    void CGameMap::RecomputeFovMap(int x, int y, bool light_walls, TCOD_fov_algorithm_t algorithm)
     {
-        m_FovMap->computeFov(x, y, radius, light_walls, algorithm);
+        m_FovMap->computeFov(x, y, FOV_RADIUS, light_walls, algorithm);
     }
 
     ///////////////////////////////////////////////////////////////////////////

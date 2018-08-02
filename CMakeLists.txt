@@ -5,7 +5,7 @@ project(Roguelike)
 set(ROGUELIKE_VERSION_MAJOR 0)
 set(ROGUELIKE_VERSION_MINOR 1)
 
-set(CMAKE_CXX_COMPILE_FEATURES "${CMAKE_CXX_COMPILE_FEATURES} Wc++17-extensions")
+set(CMAKE_CXX_COMPILE_FEATURES "${CMAKE_CXX_COMPILE_FEATURES} -Wc++17-extensions -Wpragma-once-outside-header")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 find_package(SDL2 REQUIRED)

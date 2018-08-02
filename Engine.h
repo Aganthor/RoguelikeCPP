@@ -35,6 +35,7 @@ public:
 
 private:
 	void HandleInput();
+	Entity* getPlayerEntity();
 
 private:
 	bool m_IsRunning = { false };

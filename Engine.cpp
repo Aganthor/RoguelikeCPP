@@ -28,6 +28,7 @@ void Engine::InitEngine()
 	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false);//, TCOD_RENDERER_OPENGL);
 
 	m_GameMap.MakeMap();
+	m_GameMap.setRecomputeFov(true);
 
 	//Place our player in the first room.
 	auto [x, y] = m_GameMap.getFirstRoom().getCenter();
@@ -41,7 +42,16 @@ void Engine::InitEngine()
 ///////////////////////////////////////////////////////////////////////////////
 void Engine::Update()
 {
-	m_Renderer.RenderAll(m_Entities, m_GameMap);
+	if (m_GameMap.RecomputeFov())
+	{
+		auto player = getPlayerEntity();
+		if (player)
+		{
+			m_GameMap.RecomputeFovMap(player->getXPos(), player->getYPos());
+		}
+	}
+	m_Renderer.RenderAll(m_Entities, m_GameMap, m_GameMap.RecomputeFov());
+	m_GameMap.setRecomputeFov(false);
 	m_Renderer.ClearAll(m_Entities);
 }
 
@@ -97,18 +107,36 @@ void Engine::HandleInput()
 
 	if (action == "move")
 	{
-		auto player = std::find_if(m_Entities.begin(), m_Entities.end(), [](const auto &entity)// -> bool
-		{
-			return entity->getName() == "Player";
-		});
+		auto player = getPlayerEntity();
 
-		if (player != std::end(m_Entities))
+		if (player)
 		{
 			//Check to see if we can move...
-			if (!m_GameMap.isBlocked((*player)->getXPos() + dx, (*player)->getYPos() + dy))
-				(*player)->Move(dx, dy);
+			if (!m_GameMap.isBlocked(player->getXPos() + dx, player->getYPos() + dy))
+			{
+				player->Move(dx, dy);
+				m_GameMap.setRecomputeFov(true);
+			}
 		}
 	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Helper function to get the player Entity!
+///////////////////////////////////////////////////////////////////////////////
+Entity* Engine::getPlayerEntity()
+{
+	auto player = std::find_if(m_Entities.begin(), m_Entities.end(), [](const auto &entity)
+	{
+		return entity->getName() == "Player";
+	});
+
+	if (player != std::end(m_Entities))
+		return (*player).get();
+	else
+		return nullptr;
+
+	return nullptr;
 }
 
 

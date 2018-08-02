@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "array": "cpp"
+        "array": "cpp",
+        "iostream": "cpp"
     },
     "cmake.configureOnOpen": true,
     "C_Cpp.configurationWarnings": "Disabled"

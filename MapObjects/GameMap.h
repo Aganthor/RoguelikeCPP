@@ -17,10 +17,6 @@ namespace Map
     const std::size_t MAP_HEIGHT = 45;
     const std::size_t MAX_ROOMS = 30;
 
-    const std::size_t FOV_RADIUS = 10;
-    const bool FOV_LIGHT_WALLS = true;
-    const std::size_t FOV_ALGORITHM = 0;
-
     class CGameMap
     {
     public:
@@ -28,7 +24,7 @@ namespace Map
         ~CGameMap();
 
         void MakeMap(void);
-        void RecomputeFov(int x, int y, int radius, bool light_walls = true, TCOD_fov_algorithm_t algorithm = FOV_BASIC);
+        void RecomputeFovMap(int x, int y, bool light_walls = true, TCOD_fov_algorithm_t algorithm = FOV_BASIC);
         
         //Getters and setters
         const int getWidth() const { return m_Width; }
@@ -39,12 +35,16 @@ namespace Map
         const TCODColor getColorCode(const std::string& color_id) const;
         const CTile& getTile(int x, int y) const { return m_GameMap[x][y]; }
         bool isBlocked(int x, int y);
+        void setRecomputeFov(bool recompute) {m_RecomputeFov = recompute; }
+        bool RecomputeFov() { return m_RecomputeFov; }
 
         const CRect& getFirstRoom(void)
         {
             assert(m_Rooms.size() > 1);
             return *m_Rooms[0];
         }
+
+        const TCODMap* getFovMap(void) const { return m_FovMap.get(); }
 
     private:
         void InitTiles(void);
@@ -61,7 +61,11 @@ namespace Map
         int m_RoomMaxSize;
         int m_RoomMinSize;
 
+        const std::size_t FOV_RADIUS = 10;
+        const bool FOV_LIGHT_WALLS = true;
+
         std::unique_ptr<TCODMap> m_FovMap;
+        bool m_RecomputeFov;
 
         std::map<std::string, TCODColor> m_ColorDict;
         std::vector<std::vector<CTile>> m_GameMap;

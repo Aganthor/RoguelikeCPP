@@ -10,32 +10,46 @@
 
 Renderer::Renderer()
 {
-    m_MainConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
-	//m_OffConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
+    //m_MainConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
+	m_OffConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
 }
 
 Renderer::~Renderer()
 {
-    std::cout << "Deleting renderer...\n";
 }
 
-void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, const Map::CGameMap& game_map)
+void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, Map::CGameMap& game_map,
+                         bool fov_recompute)
 {
     //First, render the map.
     auto height = game_map.getHeight();
     auto width  = game_map.getWidth();
-    for (auto y = 0; y < height; ++y)
+
+    if (fov_recompute)
     {
-        for (auto x = 0; x < width; ++x)
+        for (auto y = 0; y < height; ++y)
         {
-            auto tile = game_map.getTile(x, y);
-            if (tile.isBlockingSight())
+            for (auto x = 0; x < width; ++x)
             {
-                m_MainConsole->setCharBackground(x, y, game_map.getColorCode("dark_wall"));
-            }
-            else
-            {
-                m_MainConsole->setCharBackground(x, y, game_map.getColorCode("dark_ground"));
+                bool in_fov = game_map.getFovMap()->isInFov(x, y);
+                auto tile = game_map.getTile(x, y);
+
+                if (in_fov)
+                {
+                    if (tile.isBlockingSight())
+                        m_OffConsole->setCharBackground(x, y, game_map.getColorCode("light_wall"));
+                    else
+                        m_OffConsole->setCharBackground(x, y, game_map.getColorCode("light_ground"));
+
+                    tile.setExplored();
+                }
+                else if (tile.isExplored())
+                {
+                    if (tile.isBlockingSight())
+                        m_OffConsole->setCharBackground(x, y, game_map.getColorCode("dark_wall"));
+                    else
+                        m_OffConsole->setCharBackground(x, y, game_map.getColorCode("dark_ground"));
+                }
             }
         }
     }
@@ -43,11 +57,14 @@ void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, c
     //Second, render the entities.
     for (auto &entity : entities)
     {
-        m_MainConsole->setDefaultForeground(entity->getColor());
-        m_MainConsole->putChar(entity->getXPos(), entity->getYPos(), entity->getVisual(), TCOD_BKGND_NONE);
+        if (game_map.getFovMap()->isInFov(entity->getXPos(), entity->getYPos()))
+        {
+            m_OffConsole->setDefaultForeground(entity->getColor());
+            m_OffConsole->putChar(entity->getXPos(), entity->getYPos(), entity->getVisual(), TCOD_BKGND_NONE);
+        }
     }
 
-    TCODConsole::blit(m_MainConsole.get(), 0, 0, width, height, TCODConsole::root, 0, 0);
+    TCODConsole::blit(m_OffConsole.get(), 0, 0, width, height, TCODConsole::root, 0, 0);
     TCODConsole::flush();
 }
     
