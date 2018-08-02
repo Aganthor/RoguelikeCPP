@@ -33,7 +33,7 @@ namespace Map
         void setHeight(int h) { m_Height = h; ResizeGameMap(); }
         void setWidthHeight(int w, int h) { m_Width = w; m_Height = h; ResizeGameMap(); }
         const TCODColor getColorCode(const std::string& color_id) const;
-        const CTile& getTile(int x, int y) const { return m_GameMap[x][y]; }
+        CTile& getTile(int x, int y) { return m_GameMap[x][y]; }
         bool isBlocked(int x, int y);
         void setRecomputeFov(bool recompute) {m_RecomputeFov = recompute; }
         bool RecomputeFov() { return m_RecomputeFov; }

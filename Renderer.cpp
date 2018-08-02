@@ -41,7 +41,7 @@ void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, M
                     else
                         m_OffConsole->setCharBackground(x, y, game_map.getColorCode("light_ground"));
 
-                    tile.setExplored();
+                    game_map.getTile(x, y).setExplored();
                 }
                 else if (tile.isExplored())
                 {

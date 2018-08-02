@@ -141,6 +141,8 @@ namespace Map
             }
         }
         std::cout << "Created " << num_rooms << " rooms." << std::endl;
+        InitFovMap();
+        
     }
 
     ///////////////////////////////////////////////////////////////////////////
