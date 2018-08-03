@@ -132,8 +132,6 @@ Entity* Engine::getPlayerEntity()
 		return (*player).get();
 	else
 		return nullptr;
-
-	return nullptr;
 }
 
 
