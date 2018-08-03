@@ -10,7 +10,6 @@
 
 Renderer::Renderer()
 {
-    //m_MainConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
 	m_OffConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
 }
 
@@ -31,10 +30,9 @@ void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, M
         {
             for (auto x = 0; x < width; ++x)
             {
-                bool in_fov = game_map.getFovMap()->isInFov(x, y);
                 auto tile = game_map.getTile(x, y);
 
-                if (in_fov)
+                if (bool in_fov = game_map.getFovMap()->isInFov(x, y); in_fov)
                 {
                     if (tile.isBlockingSight())
                         m_OffConsole->setCharBackground(x, y, game_map.getColorCode("light_wall"));

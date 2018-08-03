@@ -63,8 +63,7 @@ namespace Map
             col.resize(m_Height);
 
         //Delete the old Fov Map and create a now one.
-        auto fovMapPtr = m_FovMap.release();
-        if (fovMapPtr)
+        if (auto fovMapPtr = m_FovMap.release(); fovMapPtr)
             delete fovMapPtr;
         m_FovMap = std::make_unique<TCODMap>(m_Width, m_Height);
     }
@@ -105,8 +104,7 @@ namespace Map
                 {
                     if (new_room->Intersect(*room))
                     {
-                        auto ptr = new_room.release();
-						if (ptr)
+						if (auto ptr = new_room.release(); ptr)
 							delete ptr;
                         intersect = true;
                         break;
@@ -186,8 +184,7 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     const TCODColor CGameMap::getColorCode(const std::string& color_id) const
     {
-        auto color = m_ColorDict.find(color_id);
-        if (color != m_ColorDict.end())
+        if (auto color = m_ColorDict.find(color_id); color != m_ColorDict.end())
             return color->second;
         else
             return TCOD_color_RGB(0, 0, 0);

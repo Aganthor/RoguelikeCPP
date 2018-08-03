@@ -26,7 +26,7 @@ public:
 private:
     int m_Width;
     int m_Height;
+    
     //Consoles
-	//std::unique_ptr<TCODConsole> m_MainConsole;
 	std::unique_ptr<TCODConsole> m_OffConsole;
 };

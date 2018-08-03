@@ -25,7 +25,7 @@ void Engine::InitEngine()
 	Random::init();
 
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
-	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false);//, TCOD_RENDERER_OPENGL);
+	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
 
 	m_GameMap.MakeMap();
 	m_GameMap.setRecomputeFov(true);
@@ -44,8 +44,7 @@ void Engine::Update()
 {
 	if (m_GameMap.RecomputeFov())
 	{
-		auto player = getPlayerEntity();
-		if (player)
+		if (auto player = getPlayerEntity(); player)
 		{
 			m_GameMap.RecomputeFovMap(player->getXPos(), player->getYPos());
 		}
@@ -107,9 +106,7 @@ void Engine::HandleInput()
 
 	if (action == "move")
 	{
-		auto player = getPlayerEntity();
-
-		if (player)
+		if (auto player = getPlayerEntity(); player)
 		{
 			//Check to see if we can move...
 			if (!m_GameMap.isBlocked(player->getXPos() + dx, player->getYPos() + dy))
