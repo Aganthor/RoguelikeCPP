@@ -32,6 +32,8 @@ public:
 
 	bool isRunning() { return m_IsRunning; }
 	bool isFullScreen() { return m_FullScreen; }
+	
+	bool EntityPresentAt(int x, int y);
 
 private:
 	void HandleInput();

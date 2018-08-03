@@ -178,6 +178,24 @@ namespace Map
         for (auto y = std::min(y1,y2); y < std::max(y1,y2) + 1; ++y)
             m_GameMap[x][y].setFloor();
     }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Place a random entity in the newly created room.
+    ///////////////////////////////////////////////////////////////////////////
+    void CGameMap::PlaceEntities(CRect& room)
+	{
+		//Get a random number of ennemies to place;
+		auto nbEnemies = Random::intInRange(0, MAX_ENNEMIES_PER_ROOM);
+		
+		for (auto nb = 0; nb < MAX_ENNEMIES_PER_ROOM; ++nb)
+		{
+			//Choose a random place in the room.
+			auto x = Random::intInRange( room.getX1() + 1, room.getX2() - 1);
+			auto y = Random::intInRange( room.getY1() + 1, room.getY2() - 1);
+			
+			
+		}
+	}
 
     ///////////////////////////////////////////////////////////////////////////
     // Checks the color dictionnary to see if a certain color is present.

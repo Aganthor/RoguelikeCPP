@@ -30,6 +30,7 @@ public:
 	char getVisual() { return m_Visual; }
 	bool isBlocking() { return m_Blocks; }
 	TCODColor getColor() { return m_Color; }
+	//bool Get
 
 protected:
 	int m_xPos;

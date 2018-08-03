@@ -98,6 +98,22 @@ void Engine::RegisterInput()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+bool Engine::EntityPresentAt(int x, int y)
+{
+	auto entity_present = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
+	{
+		return entity->getXPos() == x && entity->getYPos() == y;
+	});
+	
+	if (entity_present != std::end(m_Entities))
+		return true;
+	else
+		return false;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 // Takes care of handling the input registered in RegisterInput.
 ///////////////////////////////////////////////////////////////////////////////
 void Engine::HandleInput()

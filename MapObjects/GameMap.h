@@ -53,6 +53,7 @@ namespace Map
         void CreateRoom(CRect& room);
         void CreateHorizontalTunnel(int x1, int x2, int y);
         void CreateVerticalTunnel(int y1, int y2, int x);
+		void PlaceEntities(CRect& room);
 
     private:
         int m_Width;
@@ -63,6 +64,7 @@ namespace Map
 
         const std::size_t FOV_RADIUS = 10;
         const bool FOV_LIGHT_WALLS = true;
+		const int MAX_ENNEMIES_PER_ROOM = 3;
 
         std::unique_ptr<TCODMap> m_FovMap;
         bool m_RecomputeFov;
