@@ -3,7 +3,7 @@
 class CTile
 {
 public:
-    CTile() {};
+    CTile() {}
     CTile(bool block, bool blockSight=false, bool is_explored=false) : m_Blocked {block}, 
                                                                        m_BlockSight {blockSight},
                                                                        m_Explored {is_explored}
@@ -12,7 +12,7 @@ public:
         if (block)
             m_BlockSight = block;
     }
-    ~CTile() { };
+    ~CTile() { }
 
     //Getters / setters
     bool isBlocked() { return m_Blocked; }

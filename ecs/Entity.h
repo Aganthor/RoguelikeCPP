@@ -18,7 +18,7 @@ public:
 	{
 		m_xPos += dx;
 		m_yPos += dy;
-	};
+    }
 	//void MoveTowards(int target_x, int target_y, );
 	//void MoveAstar();
 	double DistanceTo(Entity& target);

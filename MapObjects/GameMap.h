@@ -27,8 +27,8 @@ namespace Map
         void RecomputeFovMap(int x, int y, bool light_walls = true, TCOD_fov_algorithm_t algorithm = FOV_BASIC);
         
         //Getters and setters
-        const int getWidth() const { return m_Width; }
-        const int getHeight() const { return m_Height; }
+        int getWidth() const { return m_Width; }
+        int getHeight() const { return m_Height; }
         void setWidth(int w) { m_Width = w; ResizeGameMap(); }
         void setHeight(int h) { m_Height = h; ResizeGameMap(); }
         void setWidthHeight(int w, int h) { m_Width = w; m_Height = h; ResizeGameMap(); }
