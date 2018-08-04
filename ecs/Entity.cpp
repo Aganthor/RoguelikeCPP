@@ -10,9 +10,7 @@ Entity::Entity(int x, int y, const std::string& name, char visual, TCODColor col
 	m_Color{ color },
 	m_Blocks{ blocks }
 {
-
 }
-
 
 Entity::~Entity()
 {
@@ -21,7 +19,6 @@ Entity::~Entity()
 ///////////////////////////////////////////////////////////////////////////////
 // As the name suggest, will calculate the distance between this and target.
 ///////////////////////////////////////////////////////////////////////////////
-
 double Entity::DistanceTo(Entity& target)
 {
 	int dx, dy;

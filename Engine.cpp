@@ -83,6 +83,21 @@ void Engine::RegisterInput()
 			m_InputAction = std::make_tuple("move", 1, 0);
 			break;
 		}
+		switch (m_TCODKey.c)
+		{
+		case 'y':
+			m_InputAction = std::make_tuple("move", -1, -1);
+			break;
+		case 'u':
+			m_InputAction = std::make_tuple("move", 1, -1);
+			break;
+		case 'b':
+			m_InputAction = std::make_tuple("move", -1, 1);
+			break;
+		case 'n':
+			m_InputAction = std::make_tuple("move", 1, 1);
+			break;						
+		}
 
 		PlayersTurn();
 		EnemiesTurn();
@@ -101,6 +116,7 @@ void Engine::RegisterInput()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+// Helper function to determine if an entity is present at location x and y.
 ///////////////////////////////////////////////////////////////////////////////
 bool Engine::EntityPresentAt(int x, int y)
 {
@@ -115,11 +131,13 @@ bool Engine::EntityPresentAt(int x, int y)
 		return false;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Helper function to create a new entity for the game.
+///////////////////////////////////////////////////////////////////////////////
 void Engine::CreateEntity(int x, int y, const std::string& name, char display, TCODColor color, bool block)
 {
 	m_Entities.push_back(std::make_unique<Entity>(x, y, name, display, color, block));
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // Takes care of handling the input registered in RegisterInput.
@@ -150,6 +168,8 @@ void Engine::PlayersTurn()
 				setGameState(GameState::ENEMIES_TURN);
 			}
 		}
+		//Reset the InputAction to nothing.
+		m_InputAction = std::make_tuple("", 0, 0);
 	}
 }
 
