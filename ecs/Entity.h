@@ -30,14 +30,13 @@ public:
 	char getVisual() { return m_Visual; }
 	bool isBlocking() { return m_Blocks; }
 	TCODColor getColor() { return m_Color; }
-	//bool Get
 
 protected:
 	int m_xPos;
 	int m_yPos;
 	std::string m_Name;
 	char m_Visual;
-	bool m_Blocks;
+	bool m_Blocks; //Can we pass through this entity?
 	TCODColor m_Color;
 };
 

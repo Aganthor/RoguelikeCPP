@@ -11,6 +11,8 @@
 #include "Tile.h"
 #include "Rect.h"
 
+class Engine;
+
 namespace Map
 {
     const std::size_t MAP_WIDTH = 80;
@@ -23,7 +25,7 @@ namespace Map
         CGameMap();
         ~CGameMap();
 
-        void MakeMap(void);
+        void MakeMap(Engine& engine);
         void RecomputeFovMap(int x, int y, bool light_walls = true, TCOD_fov_algorithm_t algorithm = FOV_BASIC);
         
         //Getters and setters
@@ -53,7 +55,7 @@ namespace Map
         void CreateRoom(CRect& room);
         void CreateHorizontalTunnel(int x1, int x2, int y);
         void CreateVerticalTunnel(int y1, int y2, int x);
-		void PlaceEntities(CRect& room);
+		void PlaceEntities(Engine& engine, CRect& room);
 
     private:
         int m_Width;

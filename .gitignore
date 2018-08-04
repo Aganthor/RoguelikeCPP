@@ -33,6 +33,7 @@
 
 #Kdev
 *.kdev4
+*.kate-swp
 
 #CMake stuff
 CMakeCache.txt
