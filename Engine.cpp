@@ -182,7 +182,7 @@ void Engine::EnemiesTurn()
 	{
 		if (entity->getName() != "Player")
 		{
-			std::cout << "The " << entity->getName() << " ponders the meaning of its existence.\n";
+			//std::cout << "The " << entity->getName() << " ponders the meaning of its existence.\n";
 		}
 	}
 

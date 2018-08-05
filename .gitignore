@@ -50,3 +50,5 @@ CMakeLists.txt.user
 # Build folder
 RogueLike/
 build/
+
+*.cson
