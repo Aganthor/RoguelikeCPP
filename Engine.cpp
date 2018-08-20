@@ -96,7 +96,7 @@ void Engine::RegisterInput()
 			break;
 		case 'n':
 			m_InputAction = std::make_tuple("move", 1, 1);
-			break;						
+			break;
 		}
 
 		PlayersTurn();
@@ -124,7 +124,7 @@ bool Engine::EntityPresentAt(int x, int y)
 	{
 		return entity->getXPos() == x && entity->getYPos() == y;
 	});
-	
+
 	if (entity_present != std::end(m_Entities))
 		return true;
 	else
@@ -152,7 +152,7 @@ void Engine::PlayersTurn()
 		{
 			auto destination_x = player->getXPos() + dx;
 			auto destination_y = player->getYPos() + dy;
-			
+
 			//Check to see if we can move...
 			if (!m_GameMap.isBlocked(destination_x, destination_y))
 			{
@@ -215,7 +215,7 @@ Entity* Engine::getBlockingEntityAtLocation(int x, int y)
 	{
 		return entity->getXPos() == x && entity->getYPos() == y;
 	});
-	
+
 	if (ent != std::end(m_Entities))
 	{
 		if ((*ent)->isBlocking())
@@ -223,9 +223,7 @@ Entity* Engine::getBlockingEntityAtLocation(int x, int y)
 		else
 			return nullptr;
 	}
-	
+
 	//If no entities at location, that means that it's certainly not blocking :)
 	return nullptr;
 }
-
-

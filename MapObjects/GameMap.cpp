@@ -22,7 +22,7 @@ namespace Map
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_wall", TCODColor(0, 0, 100)));
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("dark_ground", TCODColor(50, 50, 150)));
         m_ColorDict.insert(std::make_pair<std::string, TCODColor>("light_wall", TCODColor(130, 110, 50)));
-        m_ColorDict.insert(std::make_pair<std::string, TCODColor>("light_ground", TCODColor(200, 180, 50)));        
+        m_ColorDict.insert(std::make_pair<std::string, TCODColor>("light_ground", TCODColor(200, 180, 50)));
     }
 
     CGameMap::~CGameMap()
@@ -40,7 +40,7 @@ namespace Map
             {
                 m_GameMap[x][y].setBlocked(true);
             }
-        }   
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -134,16 +134,16 @@ namespace Map
                         CreateHorizontalTunnel(prev_x, new_x, new_y);
                     }
                     ++num_rooms;
-					//TODO: Add monsters in the new room.
-					PlaceEntities(engine, *new_room);
-					m_Rooms.push_back(std::move(new_room));    
-                    intersect = false;                    
+                    //TODO: Add monsters in the new room.
+                    PlaceEntities(engine, *new_room);
+                    m_Rooms.push_back(std::move(new_room));
+                    intersect = false;
                 }
             }
         }
         std::cout << "Created " << num_rooms << " rooms." << std::endl;
         InitFovMap();
-        
+
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -160,7 +160,7 @@ namespace Map
     void CGameMap::CreateRoom(CRect& room)
     {
         for (auto x = room.getX1() + 1; x < room.getX2(); ++x)
-            for (auto y = room.getY1() + 1; y < room.getY2(); ++y)            
+            for (auto y = room.getY1() + 1; y < room.getY2(); ++y)
                 m_GameMap[x][y].setFloor();
     }
 
@@ -181,7 +181,7 @@ namespace Map
         for (auto y = std::min(y1,y2); y < std::max(y1,y2) + 1; ++y)
             m_GameMap[x][y].setFloor();
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // Place a random entity in the newly created room.
     ///////////////////////////////////////////////////////////////////////////
@@ -189,13 +189,13 @@ namespace Map
 	{
 		//Get a random number of ennemies to place;
 		auto nbEnemies = Random::intInRange(0, MAX_ENNEMIES_PER_ROOM);
-		
+
 		for (auto nb = 0; nb < MAX_ENNEMIES_PER_ROOM; ++nb)
 		{
 			//Choose a random place in the room.
 			auto x = Random::intInRange( room.getX1() + 1, room.getX2() - 1);
 			auto y = Random::intInRange( room.getY1() + 1, room.getY2() - 1);
-			
+
 			if (!engine.EntityPresentAt(x, y))
 			{
 				if (Random::intInRange(0, 100) < 80)
@@ -218,7 +218,7 @@ namespace Map
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // Checks to see if the player can move therefore he's not blocked by a 
+    // Checks to see if the player can move therefore he's not blocked by a
     // wall. Returns true if he can move.
     ///////////////////////////////////////////////////////////////////////////
     bool CGameMap::isBlocked(int x, int y)

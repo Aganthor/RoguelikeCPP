@@ -2,20 +2,22 @@
 
 #include <cstdint>
 #include <vector>
-//#include <type_traits>
 
 namespace ecs
 {
+    //Forward declare.
+    struct BaseECSComponent;
+
     using EntityHandle = void*;
-    //using (*ECSComponentCreateFunction) = (std::vector<std::uint8_t>& memory, EntityHandle entity, BaseECSComponent* comp);
-    //using ECSCreateFunctionPtr = std::add_pointer<std::uint32_t()>::type;
+    using ECSComponentCreateFunction = std::uint32_t (*)(std::vector<std::uint8_t>& memory, EntityHandle entity, BaseECSComponent* comp);
+    using ECSComponentFreeFunction = void (*)(BaseECSComponent* com);
     #define NULL_ENTITY_HANDLE nullptr;
 
     struct BaseECSComponent
     {
         static std::uint32_t nextID();
         EntityHandle entity = NULL_ENTITY_HANDLE;
-    }
+    };
 
     template<typename T>
     struct ECSComponent : public BaseECSComponent
@@ -27,7 +29,7 @@ namespace ecs
     };
 
     template<typename Component>
-    std::uint32_t ECSComponentCreateFunction(std::vector<std::uint8_t>& memory, EntityHandle entity, BaseECSComponent* comp)
+    std::uint32_t ECSComponentCreate(std::vector<std::uint8_t>& memory, EntityHandle entity, BaseECSComponent* comp)
     {
         std::uint32_t index = memory.size();
         memory.resize(index + Component::SIZE);
@@ -37,7 +39,7 @@ namespace ecs
     }
 
     template<typename Component>
-    void ECSComponentFreeFunction(BaseECSComponent* com)
+    void ECSComponentFree(BaseECSComponent* comp)
     {
         Component* component = (Component*)comp;
         component->~Component();
@@ -49,6 +51,12 @@ namespace ecs
 
     template<typename T>
     const std::size_t ECSComponent<T>::SIZE(sizeof(T));    
+
+    template<typename T>
+    const ECSComponentCreateFunction ECSComponent<T>::CREATE_FUNCTION(ECSComponentCreate<T>);
+
+    template<typename T>
+    const ECSComponentFreeFunction ECSComponent<T>::FREE_FUNCTION(ECSComponentFree<T>);    
 
     //Begin example code.
     struct TestComponent : public ECSComponent<TestComponent>

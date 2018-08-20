@@ -1,6 +1,14 @@
 # Prerequisites
 *.d
 
+# Ctags files
+CTAGS
+GPATH
+GRPATH
+GTAGS
+TAGS
+GRTAGS
+
 # Compiled Object files
 *.slo
 *.lo

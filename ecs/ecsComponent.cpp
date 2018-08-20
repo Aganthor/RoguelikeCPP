@@ -4,7 +4,7 @@ namespace ecs
 {
     static std::uint32_t componentID = 0;
 
-    static std::uint32_t nextID()
+     std::uint32_t BaseECSComponent::nextID()
     {
         return componentID++;
     }
