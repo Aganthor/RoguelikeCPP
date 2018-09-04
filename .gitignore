@@ -1,6 +1,8 @@
 # Prerequisites
 *.d
 
+.dir-locals.el
+
 # Ctags files
 CTAGS
 GPATH
