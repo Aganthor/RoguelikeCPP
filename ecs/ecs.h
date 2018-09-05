@@ -22,7 +22,10 @@ public:
 
   //Components methods
   template<typename Component>
-  void addComponent(EntityHandle handle, Component* component);
+  inline void addComponent(EntityHandle handle, Component* component)
+  {
+    addComponentInternal(handleToEntity(handle), Component::ID, component);
+  }
 
   template<typename Component>
   void removeComponent(EntityHandle handle);
@@ -51,9 +54,9 @@ private:
 
   EntitiesVector m_entities;
 
-  inline std::pair<std::uint32_t, std::vector<std::pair<std::uint32_t, std::uint32_t>>>* handleToRawType(EntityHandle handle)
+  inline EntitiesVectorMemberData* handleToRawType(EntityHandle handle)
   {
-    return (std::pair<std::uint32_t, std::vector<std::pair<std::uint32_t, std::uint32_t>>>*)handle;
+    return (EntitiesVectorMemberData*)handle;
   }
 
   inline std::uint32_t handleToEntityIndex(EntityHandle handle)
@@ -65,5 +68,8 @@ private:
   {
     return handleToRawType(handle)->second;
   }
+
+  void deleteComponent(std::uint32_t componentID, std::uint32_t index);
+  void addComponentInternal(std::vector<std::pair<std::uint32_t, std::uint32_t>>& entity, std::uint32_t componentID, BaseECSComponent* component);
 };
 }

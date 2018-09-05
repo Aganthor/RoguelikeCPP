@@ -35,6 +35,11 @@ namespace ecs
         return std::get<2>(componentTypes[id]);
       }
 
+      inline static bool isTypeValid(std::uint32_t id)
+      {
+        return id >= componentTypes.size();
+      }
+
      private:
       static std::vector<std::tuple<ECSComponentCreateFunction, ECSComponentFreeFunction, std::size_t>> componentTypes;
     };
