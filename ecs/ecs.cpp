@@ -1,5 +1,7 @@
 #include "ecs.h"
 
+#include <cstring>
+
 namespace ecs
 {
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,12 +41,7 @@ EntityHandle ECS::makeEntity(BaseECSComponent *entityComponents, const std::uint
       return NULL_ENTITY_HANDLE;
     }
 
-    addComponentInternal(newEntity->second, componentIDs[i], &entityComponents[i]);
-    /*    ECSComponentCreateFunction createfn = BaseECSComponent::getTypeCreateFunction(componentIDs[i]);
-    std::pair<std::uint32_t, std::uint32_t> newPair;
-    newPair.first = componentIDs[i];
-    newPair.second = createfn(m_components[componentIDs[i]], handle, &entityComponents[i]);
-    newEntity->second.push_back(newPair);*/
+    addComponentInternal(handle, newEntity->second, componentIDs[i], &entityComponents[i]);
   }
 
   newEntity->first = m_entities.size();
@@ -58,7 +55,7 @@ void ECS::removeEntity(EntityHandle handle)
   std::vector<std::pair<std::uint32_t, std::uint32_t>>& entity = handleToEntity(handle);
   for (auto i = 0; i < entity.size(); ++i)
   {
-    removeComponentInternal(entity[i].first, entity[i].second);
+    deleteComponent(entity[i].first, entity[i].second);
   }
 
   std::uint32_t destIndex = handleToEntityIndex(handle);
@@ -84,17 +81,62 @@ void ECS::deleteComponent(std::uint32_t componentID, std::uint32_t index)
     array.resize(srcIndex);
     return;
   }
+
+  std::memcpy(destComponent, srcComponent, typeSize);
+
+  //Update the components...
+  std::vector<std::pair<std::uint32_t, std::uint32_t>>& srcComponents = handleToEntity(srcComponent->entity);
+  for (auto i = 0; i < srcComponents.size(); ++i)
+  {
+    if (componentID == srcComponents[i].first && srcIndex == srcComponents[i].second)
+    {
+      srcComponents[i].second = index;
+      break;
+    }
+  }
+  array.resize(srcIndex);
 }
 
-void ECS::addComponentInternal(std::vector<std::pair<std::uint32_t, std::uint32_t> > &entity, std::uint32_t componentID, BaseECSComponent *component)
+bool ECS::removeComponentInternal(EntityHandle handle, std::uint32_t componentID)
+{
+    //Update the components...
+  std::vector<std::pair<std::uint32_t, std::uint32_t>>& entityComponents = handleToEntity(handle);
+  for (auto i = 0; i < entityComponents.size(); ++i)
+  {
+    if (componentID == entityComponents[i].first)
+    {
+      deleteComponent(entityComponents[i].first, entityComponents[i].second);
+      std::uint32_t srcIndex = entityComponents.size() - 1;
+      std::uint32_t destIndex = i;
+      entityComponents[destIndex] = entityComponents[srcIndex];
+      entityComponents.pop_back();
+      return true;
+    }
+  }
+  return false;
+}
+
+void ECS::addComponentInternal(EntityHandle handle, std::vector<std::pair<std::uint32_t, std::uint32_t> > &entity, std::uint32_t componentID, BaseECSComponent *component)
 {
     ECSComponentCreateFunction createfn = BaseECSComponent::getTypeCreateFunction(componentID);
     std::pair<std::uint32_t, std::uint32_t> newPair;
     newPair.first = componentID;
     newPair.second = createfn(m_components[componentID], handle, component);
-    m_entities.push_back(newPair);
+    entity.push_back(newPair);
 }
 
+BaseECSComponent* ECS::getComponentInternal(std::vector<std::pair<std::uint32_t, std::uint32_t> > &entityComponents, std::uint32_t componentID)
+{
+  for (auto i = 0; i < entityComponents.size(); ++i)
+  {
+    if (componentID == entityComponents[i].first)
+    {
+      return (BaseECSComponent*)& m_components[componentID][entityComponents[i].second];
+    }
+  }
+
+  return nullptr;
+}
 
 
 }//Namespace

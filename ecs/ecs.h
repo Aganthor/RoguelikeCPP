@@ -22,16 +22,22 @@ public:
 
   //Components methods
   template<typename Component>
-  inline void addComponent(EntityHandle handle, Component* component)
+  inline void addComponent(EntityHandle entity, Component* component)
   {
-    addComponentInternal(handleToEntity(handle), Component::ID, component);
+    addComponentInternal(entity, handleToEntity(entity), Component::ID, component);
   }
 
   template<typename Component>
-  void removeComponent(EntityHandle handle);
+  bool removeComponent(EntityHandle handle)
+  {
+    return removeComponentInternal(handle, Component::ID);
+  }
 
   template<typename Component>
-  void getComponent(EntityHandle handle);
+  void getComponent(EntityHandle handle)
+  {
+    getComponentInternal(handleToEntity(handle), Component::ID);
+  }
 
   //System methods
   inline void addSystem(BaseECSSystem& system)
@@ -70,6 +76,8 @@ private:
   }
 
   void deleteComponent(std::uint32_t componentID, std::uint32_t index);
-  void addComponentInternal(std::vector<std::pair<std::uint32_t, std::uint32_t>>& entity, std::uint32_t componentID, BaseECSComponent* component);
+  bool removeComponentInternal(EntityHandle handle, std::uint32_t componentID);
+  void addComponentInternal(EntityHandle handle, std::vector<std::pair<std::uint32_t, std::uint32_t>>& entity, std::uint32_t componentID, BaseECSComponent* component);
+  BaseECSComponent* getComponentInternal(std::vector<std::pair<std::uint32_t, std::uint32_t>>& entityComponents, std::uint32_t componentID);
 };
 }
