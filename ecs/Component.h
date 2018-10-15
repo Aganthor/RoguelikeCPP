@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 ///////////////////////////////////////////////////////////////////////////////
 // A generic component class.
 ///////////////////////////////////////////////////////////////////////////////
@@ -7,9 +9,10 @@
 class Component
 {
 public:
-    Component() {};
+  Component() {m_name = "";};
     ~Component() {};
 
     virtual void TakeTurn(float delta) = 0;
 private:
+  std::string m_name;
 };

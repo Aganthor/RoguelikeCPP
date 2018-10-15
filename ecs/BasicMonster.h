@@ -8,6 +8,6 @@ public:
     BasicMonster() {};
     ~BasicMonster() {};
 
-    virtual void TakeTurn(float delta) override;
+    void TakeTurn(float delta) override;
 private:
 };
