@@ -28,3 +28,8 @@ double Entity::DistanceTo(Entity& target)
 
 	return std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
 }
+
+void Entity::addComponent(std::unique_ptr<Component> component)
+{
+	//if (m_components.find(component->getName()
+}

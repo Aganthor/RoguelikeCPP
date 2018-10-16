@@ -1,6 +1,6 @@
 #include "Fighter.h"
 
-void Fighter::TakeTurn(float delta)
+void FighterComponent::TakeTurn(float delta)
 {
 
 }

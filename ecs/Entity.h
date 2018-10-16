@@ -3,6 +3,11 @@
 #include <string>
 #include <libtcod.hpp>
 
+#include <map>
+#include <memory>
+
+#include "Component.h"
+
 ///////////////////////////////////////////////////////////////////////////////
 // A generic object to represent players, enemies, items, etc.
 ///////////////////////////////////////////////////////////////////////////////
@@ -30,6 +35,8 @@ public:
 	char getVisual() { return m_Visual; }
 	bool isBlocking() { return m_Blocks; }
 	TCODColor getColor() { return m_Color; }
+	
+	void addComponent(std::unique_ptr<Component> component);
 
 protected:
 	int m_xPos;
@@ -38,5 +45,7 @@ protected:
 	char m_Visual;
 	bool m_Blocks; //Can we pass through this entity?
 	TCODColor m_Color;
+	
+	std::map<std::string, std::unique_ptr<Component>> m_components;
 };
 

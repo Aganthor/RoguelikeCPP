@@ -2,11 +2,11 @@
 
 #include "Component.h"
 
-class BasicMonster : public Component
+class BasicMonsterComponent : public Component
 {
 public:
-    BasicMonster() {};
-    ~BasicMonster() {};
+    BasicMonsterComponent() : Component{"BasicMonsterAI"} {}
+    ~BasicMonsterComponent() {}
 
     void TakeTurn(float delta) override;
 private:

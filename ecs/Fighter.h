@@ -2,14 +2,14 @@
 
 #include "Component.h"
 
-class Fighter : public Component
+class FighterComponent : public Component
 {
 public:
-    Fighter(int hp, int defense, int power) : m_MaxHP{hp}, m_HP{hp}, 
-                                              m_Defense{defense}, m_Power{power} 
+    FighterComponent(int hp, int defense, int power) : Component("FighterAI"), m_MaxHP{hp}, m_HP{hp},
+                                              m_Defense{defense}, m_Power{power}
     {
     }
-    ~Fighter() {};
+    ~FighterComponent() {};
 
     void TakeTurn(float delta) override;
 
