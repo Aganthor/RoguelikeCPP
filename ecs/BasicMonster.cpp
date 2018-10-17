@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void BasicMonsterComponent::TakeTurn(float delta)
+void BasicMonsterAIComponent::TakeTurn(float delta)
 {
     std::cout << "Hello!\n";
 }

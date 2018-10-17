@@ -1,6 +1,10 @@
 #include "Entity.h"
 
 #include <cmath>
+#include <type_traits>
+#include <typeinfo>
+
+#include "Component.h"
 
 Entity::Entity(int x, int y, const std::string& name, char visual, TCODColor color, bool blocks)
 	: m_xPos{ x }, 
@@ -21,7 +25,8 @@ Entity::~Entity()
 ///////////////////////////////////////////////////////////////////////////////
 double Entity::DistanceTo(Entity& target)
 {
-	int dx, dy;
+    auto dx = int{0};
+    auto dy = int{0};
 
 	dx = target.getXPos() - m_xPos;
 	dy = target.getYPos() - m_yPos;
@@ -31,5 +36,14 @@ double Entity::DistanceTo(Entity& target)
 
 void Entity::addComponent(std::unique_ptr<Component> component)
 {
-	//if (m_components.find(component->getName()
+    //TODO : Not sure how to do it...
+    //static_assert(std::is_base_of<Component, component>::value,
+    //"`component` must be derived from `Component`");
+
+    auto alreadyThere = m_components.find(component.get()->getName());
+
+    if (alreadyThere != m_components.end())
+        return;
+
+    m_components.emplace(std::make_pair(component.get()->getName(), std::move(component)));
 }

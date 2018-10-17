@@ -15,9 +15,9 @@ class Engine;
 
 namespace Map
 {
-    const std::size_t MAP_WIDTH = 80;
-    const std::size_t MAP_HEIGHT = 45;
-    const std::size_t MAX_ROOMS = 30;
+    const int MAP_WIDTH = 80;
+    const int MAP_HEIGHT = 45;
+    const int MAX_ROOMS = 30;
 
     class CGameMap
     {
@@ -64,7 +64,7 @@ namespace Map
         int m_RoomMaxSize;
         int m_RoomMinSize;
 
-        const std::size_t FOV_RADIUS = 10;
+        const int FOV_RADIUS = 10;
         const bool FOV_LIGHT_WALLS = true;
 		const int MAX_ENNEMIES_PER_ROOM = 3;
 

@@ -92,7 +92,6 @@ namespace Map
             if (num_rooms == 0)
             {
                 //It'S our first room!!!
-                //TODO : we add the player here!
                 CreateRoom(*new_room);
                 ++num_rooms;
                 m_Rooms.push_back(std::move(new_room));
@@ -187,7 +186,7 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     void CGameMap::PlaceEntities(Engine& engine, CRect& room)
 	{
-		//Get a random number of ennemies to place;
+        //Get a random number of enemies to place;
 		auto nbEnemies = Random::intInRange(0, MAX_ENNEMIES_PER_ROOM);
 
 		for (auto nb = 0; nb < MAX_ENNEMIES_PER_ROOM; ++nb)

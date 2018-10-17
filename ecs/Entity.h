@@ -1,12 +1,14 @@
 #pragma once
 
 #include <string>
-#include <libtcod.hpp>
-
 #include <map>
 #include <memory>
+#include <algorithm>
 
-#include "Component.h"
+#include <libtcod.hpp>
+
+//Forward declare.
+class Component;
 
 ///////////////////////////////////////////////////////////////////////////////
 // A generic object to represent players, enemies, items, etc.
@@ -36,6 +38,22 @@ public:
 	bool isBlocking() { return m_Blocks; }
 	TCODColor getColor() { return m_Color; }
 	
+    //
+    // Searches the map for a component of typeid Component_t.
+    //
+//    template <typename Component_t>
+//    bool hasComponent(Component_t component)
+//    {
+//        auto component_present = std::find_if(m_components.begin(), m_components.end(), [component](const auto &c)
+//        {
+//            return c.second->get()->getName() == component.getName();
+//        });
+
+//        if (component_present != std::end(m_components))
+//            return true;
+//        else
+//            return false;
+//    }
 	void addComponent(std::unique_ptr<Component> component);
 
 protected:
@@ -43,8 +61,8 @@ protected:
 	int m_yPos;
 	std::string m_Name;
 	char m_Visual;
-	bool m_Blocks; //Can we pass through this entity?
 	TCODColor m_Color;
+    bool m_Blocks; //Can we pass through this entity?
 	
 	std::map<std::string, std::unique_ptr<Component>> m_components;
 };

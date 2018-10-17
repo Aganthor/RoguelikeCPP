@@ -41,10 +41,17 @@ public:
 	bool isFullScreen() { return m_FullScreen; }
 
 	void setGameState(GameState state) { m_GameState = state; }
-	const GameState getGameState(void) { return m_GameState; }
+    GameState getGameState(void) const { return m_GameState; }
 
 	bool EntityPresentAt(int x, int y);
-	void CreateEntity(int x, int y, const std::string& name, char display, TCODColor color, bool block = false);
+    void CreateEntity(int x, int y, const std::string& name, char display, TCODColor color, bool block = false, bool isPlayer = false);
+
+    template <typename T, typename... TArgs>
+    void CreateEntityTest(TArgs... mArgs)
+    {
+        auto uPtr(std::make_unique<T>(std::forward<TArgs>(mArgs)...));
+        m_Entities.emplace(std::move(uPtr));
+    }
 	
 private:
 	void PlayersTurn();

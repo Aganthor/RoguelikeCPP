@@ -2,6 +2,8 @@
 
 #include <string>
 
+//#include "Entity.h"
+
 ///////////////////////////////////////////////////////////////////////////////
 // A generic component class.
 ///////////////////////////////////////////////////////////////////////////////
@@ -9,13 +11,16 @@
 class Component
 {
 public:
-    Component() { m_name = ""; };
+    Component() : m_name{""} {}
     Component(const std::string& name) : m_name{name} {}
-    ~Component() {}
+    virtual ~Component() {}
 
     virtual void TakeTurn(float delta) = 0;
 
-    const std::string& getName() { return m_name; }
+    const std::string& getName() const { return m_name; }
+
+    //Entity* getEntity() { return m_entity; }
 protected:
     std::string m_name;
+    //Entity* m_entity;
 };

@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "../Utility/Random.h"
+#include "ecs/Fighter.h"
 
 using namespace Map;
 
@@ -32,7 +33,8 @@ void Engine::InitEngine()
 
 	//Place our player in the first room.
 	auto [x, y] = m_GameMap.getFirstRoom().getCenter();
-	CreateEntity(x, y, "Player", '@', TCODColor::white);
+    //CreateEntity(x, y, "Player", '@', TCODColor::white, false, true);
+    //CreateEntityTest<Entity>
 
 	m_IsRunning = true;
 }
@@ -134,9 +136,20 @@ bool Engine::EntityPresentAt(int x, int y)
 ///////////////////////////////////////////////////////////////////////////////
 // Helper function to create a new entity for the game.
 ///////////////////////////////////////////////////////////////////////////////
-void Engine::CreateEntity(int x, int y, const std::string& name, char display, TCODColor color, bool block)
+void Engine::CreateEntity(int x, int y, const std::string& name, char display,
+                          TCODColor color, bool block, bool isPlayer)
 {
-	m_Entities.push_back(std::make_unique<Entity>(x, y, name, display, color, block));
+    if (isPlayer)
+    {
+        auto player = std::make_unique<Entity>(x, y, name, display, color, block);
+        //TODO player stats should be saved and loaded from config file...
+        player->addComponent(std::make_unique<FighterComponent>(30, 2, 5));
+        m_Entities.emplace_back(std::move(player));
+    }
+    else
+    {
+        m_Entities.emplace_back(std::make_unique<Entity>(x, y, name, display, color, block));
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
