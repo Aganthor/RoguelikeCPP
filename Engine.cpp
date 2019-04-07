@@ -6,8 +6,6 @@
 #include "../Utility/Random.h"
 #include "ecs/Fighter.h"
 
-using namespace Map;
-
 Engine::Engine()
 {
 	m_Renderer.SetRenderSize(MAP_WIDTH, MAP_HEIGHT);
@@ -33,7 +31,7 @@ void Engine::InitEngine()
 
 	//Place our player in the first room.
 	auto [x, y] = m_GameMap.getFirstRoom().getCenter();
-    //CreateEntity(x, y, "Player", '@', TCODColor::white, false, true);
+    CreateEntity(x, y, "Player", '@', TCODColor::white, false, true);
     //CreateEntityTest<Entity>
 
 	m_IsRunning = true;

@@ -9,7 +9,7 @@ public:
                                               m_Defense{defense}, m_Power{power}
     {
     }
-    virtual ~FighterComponent() {}
+    virtual ~FighterComponent() override {}
 
     void TakeTurn(float delta) override;
 

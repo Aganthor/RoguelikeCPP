@@ -6,7 +6,7 @@ class BasicMonsterAIComponent : public Component
 {
 public:
     BasicMonsterAIComponent() : Component{"BasicMonsterAI"} {}
-    virtual ~BasicMonsterAIComponent() {}
+    virtual ~BasicMonsterAIComponent() override {}
 
     void TakeTurn(float delta) override;
 private:

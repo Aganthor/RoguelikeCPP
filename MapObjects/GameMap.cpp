@@ -65,7 +65,9 @@ namespace Map
 
         //Delete the old Fov Map and create a now one.
         if (auto fovMapPtr = m_FovMap.release(); fovMapPtr)
+		{
             delete fovMapPtr;
+		}
         m_FovMap = std::make_unique<TCODMap>(m_Width, m_Height);
     }
 
@@ -105,7 +107,9 @@ namespace Map
                     if (new_room->Intersect(*room))
                     {
 						if (auto ptr = new_room.release(); ptr)
+						{
 							delete ptr;
+						}
                         intersect = true;
                         break;
                     }
@@ -133,7 +137,6 @@ namespace Map
                         CreateHorizontalTunnel(prev_x, new_x, new_y);
                     }
                     ++num_rooms;
-                    //TODO: Add monsters in the new room.
                     PlaceEntities(engine, *new_room);
                     m_Rooms.push_back(std::move(new_room));
                     intersect = false;

@@ -60,5 +60,7 @@ CMakeLists.txt.user
 # Build folder
 build/
 
+/.vscode
 *.cson
 /.directory
+/CMakeLists.txt.user.4.8-pre1
