@@ -19,6 +19,7 @@ void Game::run()
 	while (!TCODConsole::isWindowClosed() || m_Engine->isRunning())
 	{
 		m_Engine->RegisterInput();
+        m_Engine->HandleInput();
 		if (!m_Engine->isRunning())
 			break;
 		m_Engine->Update();
