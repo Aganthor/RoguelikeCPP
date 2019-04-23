@@ -16,7 +16,7 @@ Engine::~Engine()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// Initialize TCOD consoles.
+// Initialize TCOD consoles; create game map and place player in the 1st room.
 ///////////////////////////////////////////////////////////////////////////////
 void Engine::InitEngine()
 {
@@ -54,6 +54,11 @@ void Engine::Update()
 	m_Renderer.ClearAll(m_Entities);
 }
 
+void Engine::HandleInput()
+{
+    PlayersTurn();
+    EnemiesTurn();
+}
 ///////////////////////////////////////////////////////////////////////////////
 // Function that register keyboard input. FOr fullscreen and exit, we just
 // set some boolean. FOr mouvement, we set up the m_InputAction tuple to
@@ -62,8 +67,6 @@ void Engine::Update()
 void Engine::RegisterInput()
 {
 	m_TCODEvent = TCODSystem::checkForEvent(TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &m_TCODKey, &m_TCODMouse);
-
-	setGameState(GameState::PLAYERS_TURN);
 
 	//Handle character mouvement
 	if (m_TCODEvent == TCOD_EVENT_KEY_PRESS)
@@ -99,15 +102,12 @@ void Engine::RegisterInput()
 			break;
 		}
 
-		PlayersTurn();
-		EnemiesTurn();
-
 		//Check for Escape key or fullscreen sequence
-		if (m_TCODKey.vk == TCODK_ESCAPE)
+        if (m_TCODKey.vk == TCODK_ESCAPE)
 		{
 			m_IsRunning = false;
 		}
-		else if (m_TCODKey.vk == TCODK_ENTER && m_TCODKey.lalt)
+        if (m_TCODKey.vk == TCODK_ENTER && m_TCODKey.lalt)
 		{
 			m_FullScreen = !m_FullScreen;
 			TCODConsole::setFullscreen(m_FullScreen);
@@ -157,6 +157,8 @@ void Engine::PlayersTurn()
 {
 	auto [action, dx, dy] = m_InputAction;
 
+    setGameState(GameState::PLAYERS_TURN);
+
 	if ((action == "move") && (m_GameState == GameState::PLAYERS_TURN))
 	{
 		if (auto player = getPlayerEntity(); player)
@@ -193,7 +195,7 @@ void Engine::EnemiesTurn()
 	{
 		if (entity->getName() != "Player")
 		{
-			//std::cout << "The " << entity->getName() << " ponders the meaning of its existence.\n";
+            std::cout << "The " << entity->getName() << " ponders the meaning of its existence.\n";
 		}
 	}
 

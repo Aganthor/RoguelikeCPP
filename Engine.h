@@ -35,6 +35,7 @@ public:
 
 	void InitEngine();
 	void Update();
+    void HandleInput();
 	void RegisterInput();
 
 	bool isRunning() { return m_IsRunning; }
