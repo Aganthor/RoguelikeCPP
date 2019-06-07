@@ -139,14 +139,14 @@ void Engine::CreateEntity(int x, int y, const std::string& name, char display,
 {
     if (isPlayer)
     {
-        auto player = std::make_unique<Entity>(x, y, name, display, color, block);
+        auto player = std::make_unique<ecs::Entity>(x, y, name, display, color, block);
         //TODO player stats should be saved and loaded from config file...
-        player->addComponent(std::make_unique<FighterComponent>(30, 2, 5));
+        player->addComponent(std::make_unique<ecs::FighterComponent>(30, 2, 5));
         m_Entities.emplace_back(std::move(player));
     }
     else
     {
-        m_Entities.emplace_back(std::make_unique<Entity>(x, y, name, display, color, block));
+        m_Entities.emplace_back(std::make_unique<ecs::Entity>(x, y, name, display, color, block));
     }
 }
 
@@ -205,7 +205,7 @@ void Engine::EnemiesTurn()
 ///////////////////////////////////////////////////////////////////////////////
 // Helper function to get the player Entity!
 ///////////////////////////////////////////////////////////////////////////////
-Entity* Engine::getPlayerEntity()
+ecs::Entity* Engine::getPlayerEntity()
 {
 	auto player = std::find_if(m_Entities.begin(), m_Entities.end(), [](const auto &entity)
 	{
@@ -222,7 +222,7 @@ Entity* Engine::getPlayerEntity()
 // Helper function to determine if the entity we are about to walk to is
 // a blocking entity or not.
 ///////////////////////////////////////////////////////////////////////////////
-Entity* Engine::getBlockingEntityAtLocation(int x, int y)
+ecs::Entity* Engine::getBlockingEntityAtLocation(int x, int y)
 {
 	auto ent = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
 	{

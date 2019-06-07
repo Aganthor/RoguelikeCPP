@@ -58,8 +58,8 @@ private:
 	void PlayersTurn();
 	void EnemiesTurn();
 
-	Entity* getPlayerEntity();
-	Entity* getBlockingEntityAtLocation(int x, int y);
+    ecs::Entity* getPlayerEntity();
+    ecs::Entity* getBlockingEntityAtLocation(int x, int y);
 	
 private:
 	bool m_IsRunning = { false };
@@ -69,7 +69,7 @@ private:
 	TCOD_event_t m_TCODEvent;
 	GameState m_GameState;
 
-	std::vector<std::unique_ptr<Entity>> m_Entities;
+    std::vector<std::unique_ptr<ecs::Entity>> m_Entities;
 
 	std::tuple<std::string, int, int> m_InputAction;
 

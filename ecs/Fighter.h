@@ -2,6 +2,8 @@
 
 #include "Component.h"
 
+namespace ecs {
+
 class FighterComponent : public Component
 {
 public:
@@ -19,3 +21,6 @@ private:
     int m_Defense;
     int m_Power;
 };
+
+
+} // namespace ecs

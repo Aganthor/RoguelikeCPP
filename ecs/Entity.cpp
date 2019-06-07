@@ -6,13 +6,15 @@
 
 #include "Component.h"
 
+namespace ecs {
+
 Entity::Entity(int x, int y, const std::string& name, char visual, TCODColor color, bool blocks)
-	: m_xPos{ x }, 
-	m_yPos{ y }, 
-	m_Name{ name }, 
-	m_Visual {visual },
-	m_Color{ color },
-	m_Blocks{ blocks }
+    : m_xPos{ x },
+    m_yPos{ y },
+    m_Name{ name },
+    m_Visual {visual },
+    m_Color{ color },
+    m_Blocks{ blocks }
 {
 }
 
@@ -28,10 +30,10 @@ double Entity::DistanceTo(Entity& target)
     auto dx = int{0};
     auto dy = int{0};
 
-	dx = target.getXPos() - m_xPos;
-	dy = target.getYPos() - m_yPos;
+    dx = target.getXPos() - m_xPos;
+    dy = target.getYPos() - m_yPos;
 
-	return std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
+    return std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
 }
 
 void Entity::addComponent(std::unique_ptr<Component> component)
@@ -47,3 +49,6 @@ void Entity::addComponent(std::unique_ptr<Component> component)
 
     m_components.emplace(std::make_pair(component.get()->getName(), std::move(component)));
 }
+
+
+} // namespace ecs

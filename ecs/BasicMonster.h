@@ -2,6 +2,8 @@
 
 #include "Component.h"
 
+namespace ecs {
+
 class BasicMonsterAIComponent : public Component
 {
 public:
@@ -11,3 +13,7 @@ public:
     void TakeTurn(float delta) override;
 private:
 };
+
+
+} // namespace ecs
+

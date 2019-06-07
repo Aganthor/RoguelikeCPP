@@ -2,7 +2,9 @@
 
 #include <string>
 
-//#include "Entity.h"
+namespace ecs {
+
+class Entity;
 
 ///////////////////////////////////////////////////////////////////////////////
 // A generic component class.
@@ -19,8 +21,11 @@ public:
 
     const std::string& getName() const { return m_name; }
 
-    //Entity* getEntity() { return m_entity; }
+    Entity* getEntity() { return m_entity; }
 protected:
     std::string m_name;
-    //Entity* m_entity;
+    Entity* m_entity;
 };
+
+
+} // namespace ecs
