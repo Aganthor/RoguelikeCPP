@@ -17,7 +17,7 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, Map::CGameMap& game_map,
+void Renderer::RenderAll(const std::vector<std::unique_ptr<ecs::Entity>>& entities, Map::CGameMap& game_map,
 			 bool fov_recompute)
 {
     //First, render the map.
@@ -74,7 +74,7 @@ void Renderer::RenderAll(const std::vector<std::unique_ptr<Entity>>& entities, M
     TCODConsole::flush();
 }
 
-void Renderer::ClearAll(const std::vector<std::unique_ptr<Entity>>& entities)
+void Renderer::ClearAll(const std::vector<std::unique_ptr<ecs::Entity>>& entities)
 {
     for (auto &entity : entities)
         TCODConsole::root->putChar(entity->getXPos(), entity->getYPos(), ' ', TCOD_BKGND_NONE);
