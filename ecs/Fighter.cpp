@@ -3,10 +3,10 @@
 
 namespace ecs {
 
-void FighterComponent::TakeTurn(float delta)
-{
+//void FighterComponent::TakeTurn(float delta)
+//{
 
-}
+//}
 
 } // namespace ecs
 
