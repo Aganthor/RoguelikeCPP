@@ -1,3 +1,3 @@
-set(ECS_SOURCES Fighter.cpp BasicMonster.cpp)
+#set(ECS_SOURCES)
 
-add_library(ecs ${ECS_SOURCES})
+#add_library(ecs ${ECS_SOURCES})
