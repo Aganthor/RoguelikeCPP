@@ -10,7 +10,7 @@ struct Entity {
 };
 
 //The maximum number of entities that the system can handle.
-const Entity MAX_ENTITIES = 5000;
+const std::uint32_t MAX_ENTITIES = 5000;
 
 } // namespace ecs
 
