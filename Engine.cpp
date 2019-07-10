@@ -44,6 +44,7 @@ void Engine::Update()
 {
 	if (m_GameMap.RecomputeFov())
 	{
+        //TODO Will need to be updated to new ECS...
 		if (auto player = getPlayerEntity(); player)
 		{
 			m_GameMap.RecomputeFovMap(player->getXPos(), player->getYPos());
@@ -122,6 +123,7 @@ bool Engine::EntityPresentAt(int x, int y)
 {
 	auto entity_present = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
 	{
+        //TODO Will need to be updated to new ECS...
 		return entity->getXPos() == x && entity->getYPos() == y;
 	});
 
@@ -141,6 +143,7 @@ void Engine::CreateEntity(int x, int y, const std::string& name, char display,
     {
         auto player = std::make_unique<ecs::Entity>(x, y, name, display, color, block);
         //TODO player stats should be saved and loaded from config file...
+        //TODO Will need to be updated to new ECS...
         player->addComponent(std::make_unique<ecs::FighterComponent>(30, 2, 5));
         m_Entities.emplace_back(std::move(player));
     }
@@ -163,6 +166,7 @@ void Engine::PlayersTurn()
 	{
 		if (auto player = getPlayerEntity(); player)
 		{
+            //TODO Will need to be updated to new ECS...
 			auto destination_x = player->getXPos() + dx;
 			auto destination_y = player->getYPos() + dy;
 
@@ -175,6 +179,7 @@ void Engine::PlayersTurn()
 				}
 				else
 				{
+                    //TODO Will need to be updated to new ECS...
 					player->Move(dx, dy);
 					m_GameMap.setRecomputeFov(true);
 				}
@@ -193,6 +198,7 @@ void Engine::EnemiesTurn()
 {
 	for (auto &entity : m_Entities)
 	{
+        //TODO Will need to be updated to new ECS...
 		if (entity->getName() != "Player")
 		{
             std::cout << "The " << entity->getName() << " ponders the meaning of its existence.\n";
@@ -209,6 +215,7 @@ ecs::Entity* Engine::getPlayerEntity()
 {
 	auto player = std::find_if(m_Entities.begin(), m_Entities.end(), [](const auto &entity)
 	{
+        //TODO Will need to be updated to new ECS...
 		return entity->getName() == "Player";
 	});
 
@@ -226,11 +233,13 @@ ecs::Entity* Engine::getBlockingEntityAtLocation(int x, int y)
 {
 	auto ent = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
 	{
+        //TODO Will need to be updated to new ECS...
 		return entity->getXPos() == x && entity->getYPos() == y;
 	});
 
 	if (ent != std::end(m_Entities))
 	{
+        //TODO Will need to be updated to new ECS...
 		if ((*ent)->isBlocking())
 			return (*ent).get();
 		else
