@@ -1,3 +1,3 @@
-#set(ECS_SOURCES)
+set(ECS_SOURCES entitymanager.cpp)
 
-#add_library(ecs ${ECS_SOURCES})
+add_library(ecs ${ECS_SOURCES})
