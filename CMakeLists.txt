@@ -22,6 +22,7 @@ include_directories(${SDL2_INCLUDE_DIRS})
 include_directories(include/)
 include_directories(Utility/)
 include_directories(MapObjects/)
+include_directories(ecs/Components)
 
 add_subdirectory(ecs)
 add_subdirectory(MapObjects)
