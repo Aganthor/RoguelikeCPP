@@ -4,13 +4,14 @@
 
 namespace ecs {
 
-//A simple struct with a simple unsigned int id.
+class World;
+
 struct Entity {
     std::uint32_t id;
-};
 
-//The maximum number of entities that the system can handle.
-const std::uint32_t MAX_ENTITIES = 5000;
+    //To put it in maps.
+    friend bool operator<(const Entity& l, const Entity& r) { return l.id < r.id; }
+};
 
 } // namespace ecs
 

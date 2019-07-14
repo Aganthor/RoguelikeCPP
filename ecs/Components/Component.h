@@ -1,11 +1,32 @@
 #pragma once
 
 #include <cstdint>
+#include <type_traits>
+
+#include "componentManager.h"
+#include "../Entity.h"
+
+//
+//The base implementation of a component.
+//
 
 namespace ecs {
 
-using ComponentType = std::uint8_t;
+struct ComponentCounter {
+    static int familyCounter;
+};
 
-const ComponentType MAX_COMPONENTS = 32;
+template <typename ComponentType>
+struct Component {
+    static inline int family() {
+        static int family = ComponentCounter::familyCounter++;
+        return family;
+    }
+};
+
+template <typename C>
+static int GetComponentFamily() {
+    return Component<typename std::remove_const<C>::type>::family();
+}
 
 } // namespace ecs
