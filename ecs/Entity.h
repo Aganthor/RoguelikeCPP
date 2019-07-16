@@ -4,13 +4,14 @@
 
 namespace ecs {
 
-//A simple struct with a simple unsigned int id.
-struct Entity {
-    std::uint32_t id;
-};
+using EntityID = std::int32_t;
+constexpr auto MaxEntityCount = 1024;
 
-//The maximum number of entities that the system can handle.
-const std::uint32_t MAX_ENTITIES = 5000;
+//Simple struct to represent an ID.
+
+struct Entity {
+    EntityID id;
+};
 
 } // namespace ecs
 
