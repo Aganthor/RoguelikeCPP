@@ -4,12 +4,10 @@
 
 namespace ecs {
 
-class HealthComponent : public Component<HealthComponent> {
-public:
+struct HealthComponent : public Component<HealthComponent> {
     HealthComponent() : curHP{0}, maxHP{0} {}
     HealthComponent(int cur, int max) : curHP{cur}, maxHP{max} {}
 
-public:
     int curHP {0};
     int maxHP {0};
 };

@@ -9,9 +9,9 @@ namespace esc {
 // for the Entity (e.g.: '@' for the player).
 //
 
-class AsciiComponent : public Component<AsciiComponent> {
-public:
-    char display;
+struct AsciiComponent : public Component<AsciiComponent> {
+  AsciiComponent(char ch) : display{ch} {}
+  char display{' '};
 };
 
-}
+}  // namespace esc

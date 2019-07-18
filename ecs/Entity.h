@@ -1,17 +1,16 @@
 #pragma once
 
 #include <cstdint>
+#include <limits>
 
 namespace ecs {
 
-using EntityID = std::int32_t;
+using Entity = std::uint32_t;
+using Index = std::uint32_t;
+
+static constexpr auto InvalidIndex = std::numeric_limits<Index>::max();
+
 constexpr auto MaxEntityCount = 1024;
-
-//Simple struct to represent an ID.
-
-struct Entity {
-    EntityID id;
-};
 
 } // namespace ecs
 
