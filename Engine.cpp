@@ -4,7 +4,6 @@
 #include <iostream>
 
 #include "../Utility/Random.h"
-#include "ecs/Fighter.h"
 
 Engine::Engine()
 {
@@ -44,15 +43,15 @@ void Engine::Update()
 {
 	if (m_GameMap.RecomputeFov())
 	{
-        //TODO Will need to be updated to new ECS...
-		if (auto player = getPlayerEntity(); player)
-		{
-			m_GameMap.RecomputeFovMap(player->getXPos(), player->getYPos());
-		}
+//        //TODO Will need to be updated to new ECS...
+//		if (auto player = getPlayerEntity(); player)
+//		{
+////			m_GameMap.RecomputeFovMap(player->getXPos(), player->getYPos());
+//		}
 	}
-	m_Renderer.RenderAll(m_Entities, m_GameMap, m_GameMap.RecomputeFov());
+//	m_Renderer.RenderAll(m_Entities, m_GameMap, m_GameMap.RecomputeFov());
 	m_GameMap.setRecomputeFov(false);
-	m_Renderer.ClearAll(m_Entities);
+//	m_Renderer.ClearAll(m_Entities);
 }
 
 void Engine::HandleInput()
@@ -121,16 +120,16 @@ void Engine::RegisterInput()
 ///////////////////////////////////////////////////////////////////////////////
 bool Engine::EntityPresentAt(int x, int y)
 {
-	auto entity_present = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
-	{
-        //TODO Will need to be updated to new ECS...
-		return entity->getXPos() == x && entity->getYPos() == y;
-	});
+//	auto entity_present = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
+//	{
+//        //TODO Will need to be updated to new ECS...
+//		return entity->getXPos() == x && entity->getYPos() == y;
+//	});
 
-	if (entity_present != std::end(m_Entities))
+//	if (entity_present != std::end(m_Entities))
 		return true;
-	else
-		return false;
+//	else
+//		return false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -141,15 +140,15 @@ void Engine::CreateEntity(int x, int y, const std::string& name, char display,
 {
     if (isPlayer)
     {
-        auto player = std::make_unique<ecs::Entity>(x, y, name, display, color, block);
+        //auto player = std::make_unique<ecs::Entity>(x, y, name, display, color, block);
         //TODO player stats should be saved and loaded from config file...
         //TODO Will need to be updated to new ECS...
-        player->addComponent(std::make_unique<ecs::FighterComponent>(30, 2, 5));
-        m_Entities.emplace_back(std::move(player));
+//        player->addComponent(std::make_unique<ecs::FighterComponent>(30, 2, 5));
+//        m_Entities.emplace_back(std::move(player));
     }
     else
     {
-        m_Entities.emplace_back(std::make_unique<ecs::Entity>(x, y, name, display, color, block));
+  //      m_Entities.emplace_back(std::make_unique<ecs::Entity>(x, y, name, display, color, block));
     }
 }
 
@@ -164,28 +163,28 @@ void Engine::PlayersTurn()
 
 	if ((action == "move") && (m_GameState == GameState::PLAYERS_TURN))
 	{
-		if (auto player = getPlayerEntity(); player)
-		{
-            //TODO Will need to be updated to new ECS...
-			auto destination_x = player->getXPos() + dx;
-			auto destination_y = player->getYPos() + dy;
+//		if (auto player = getPlayerEntity(); player)
+//		{
+//            //TODO Will need to be updated to new ECS...
+////			auto destination_x = player->getXPos() + dx;
+////			auto destination_y = player->getYPos() + dy;
 
-			//Check to see if we can move...
-			if (!m_GameMap.isBlocked(destination_x, destination_y))
-			{
-				if (auto target = getBlockingEntityAtLocation(destination_x, destination_y); target)
-				{
-					std::cout << "You kick the crap out of " << target->getName() << ", much to it's annoyance!\n";
-				}
-				else
-				{
-                    //TODO Will need to be updated to new ECS...
-					player->Move(dx, dy);
-					m_GameMap.setRecomputeFov(true);
-				}
-				setGameState(GameState::ENEMIES_TURN);
-			}
-		}
+//			//Check to see if we can move...
+////			if (!m_GameMap.isBlocked(destination_x, destination_y))
+////			{
+////				if (auto target = getBlockingEntityAtLocation(destination_x, destination_y); target)
+////				{
+////					std::cout << "You kick the crap out of " << target->getName() << ", much to it's annoyance!\n";
+////				}
+////				else
+////				{
+////                    //TODO Will need to be updated to new ECS...
+////					player->Move(dx, dy);
+////					m_GameMap.setRecomputeFov(true);
+////				}
+////				setGameState(GameState::ENEMIES_TURN);
+////			}
+//		}
 		//Reset the InputAction to nothing.
 		m_InputAction = std::make_tuple("", 0, 0);
 	}
@@ -196,14 +195,14 @@ void Engine::PlayersTurn()
 ///////////////////////////////////////////////////////////////////////////////
 void Engine::EnemiesTurn()
 {
-	for (auto &entity : m_Entities)
-	{
-        //TODO Will need to be updated to new ECS...
-		if (entity->getName() != "Player")
-		{
-            std::cout << "The " << entity->getName() << " ponders the meaning of its existence.\n";
-		}
-	}
+//	for (auto &entity : m_Entities)
+//	{
+//        //TODO Will need to be updated to new ECS...
+////		if (entity->getName() != "Player")
+////		{
+////            std::cout << "The " << entity->getName() << " ponders the meaning of its existence.\n";
+////		}
+//	}
 
 	setGameState(GameState::PLAYERS_TURN);
 }
@@ -211,41 +210,41 @@ void Engine::EnemiesTurn()
 ///////////////////////////////////////////////////////////////////////////////
 // Helper function to get the player Entity!
 ///////////////////////////////////////////////////////////////////////////////
-ecs::Entity* Engine::getPlayerEntity()
-{
-	auto player = std::find_if(m_Entities.begin(), m_Entities.end(), [](const auto &entity)
-	{
-        //TODO Will need to be updated to new ECS...
-		return entity->getName() == "Player";
-	});
+//ecs::Entity* Engine::getPlayerEntity()
+//{
+//	auto player = std::find_if(m_Entities.begin(), m_Entities.end(), [](const auto &entity)
+//	{
+//        //TODO Will need to be updated to new ECS...
+//		return entity->getName() == "Player";
+//	});
 
-	if (player != std::end(m_Entities))
-		return (*player).get();
-	else
-		return nullptr;
-}
+//	if (player != std::end(m_Entities))
+//		return (*player).get();
+//	else
+//		return nullptr;
+//}
 
 ///////////////////////////////////////////////////////////////////////////////
 // Helper function to determine if the entity we are about to walk to is
 // a blocking entity or not.
 ///////////////////////////////////////////////////////////////////////////////
-ecs::Entity* Engine::getBlockingEntityAtLocation(int x, int y)
-{
-	auto ent = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
-	{
-        //TODO Will need to be updated to new ECS...
-		return entity->getXPos() == x && entity->getYPos() == y;
-	});
+//ecs::Entity* Engine::getBlockingEntityAtLocation(int x, int y)
+//{
+//	auto ent = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
+//	{
+//        //TODO Will need to be updated to new ECS...
+//		return entity->getXPos() == x && entity->getYPos() == y;
+//	});
 
-	if (ent != std::end(m_Entities))
-	{
-        //TODO Will need to be updated to new ECS...
-		if ((*ent)->isBlocking())
-			return (*ent).get();
-		else
-			return nullptr;
-	}
+//	if (ent != std::end(m_Entities))
+//	{
+//        //TODO Will need to be updated to new ECS...
+////		if ((*ent)->isBlocking())
+////			return (*ent).get();
+////		else
+////			return nullptr;
+//	}
 
-	//If no entities at location, that means that it's certainly not blocking :)
-	return nullptr;
-}
+//	//If no entities at location, that means that it's certainly not blocking :)
+//	return nullptr;
+//}

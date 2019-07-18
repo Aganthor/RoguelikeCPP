@@ -51,15 +51,15 @@ public:
     void CreateEntityTest(TArgs... mArgs)
     {
         auto uPtr(std::make_unique<T>(std::forward<TArgs>(mArgs)...));
-        m_Entities.emplace(std::move(uPtr));
+        //m_Entities.emplace(std::move(uPtr));
     }
 	
 private:
 	void PlayersTurn();
 	void EnemiesTurn();
 
-    ecs::Entity* getPlayerEntity();
-    ecs::Entity* getBlockingEntityAtLocation(int x, int y);
+//    ecs::Entity* getPlayerEntity();
+//    ecs::Entity* getBlockingEntityAtLocation(int x, int y);
 	
 private:
 	bool m_IsRunning = { false };
@@ -69,7 +69,7 @@ private:
 	TCOD_event_t m_TCODEvent;
 	GameState m_GameState;
 
-    std::vector<std::unique_ptr<ecs::Entity>> m_Entities;
+    //std::vector<std::unique_ptr<ecs::Entity>> m_Entities;
 
 	std::tuple<std::string, int, int> m_InputAction;
 
