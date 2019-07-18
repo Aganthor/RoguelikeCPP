@@ -1,17 +1,16 @@
 #pragma once
 
 #include <cstdint>
+#include <limits>
 
 namespace ecs {
 
-class World;
+using Entity = std::uint32_t;
+using Index = std::uint32_t;
 
-struct Entity {
-    std::uint32_t id;
+static constexpr auto InvalidIndex = std::numeric_limits<Index>::max();
 
-    //To put it in maps.
-    friend bool operator<(const Entity& l, const Entity& r) { return l.id < r.id; }
-};
-
+constexpr auto MaxEntityCount = 1024;
+  
 } // namespace ecs
 

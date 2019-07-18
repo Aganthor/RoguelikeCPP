@@ -1,23 +1,29 @@
 #pragma once
 
-#include <cstdint>
-#include "Entity.h"
+#include <unordered_map>
+#include <array>
+#include <memory>
 
-//
-// The entity manager exists to keep track of entity IDs to make sure that
-// conflicts don't happen. Read more here:
-// https://medium.com/@savas/nomad-game-engine-part-3-the-big-picture-743cec145685
-//
+#include "Entity.h"
+#include "Components/Component.h"
+#include "Systems/system.h"
 
 namespace ecs {
+//
+// The EntityManager is responsible to glue all of the ECS components together.
+//
 
-class EntityManager {
-public:
-    Entity createEntity();
-    void destroy(Entity entity);
-
-private:
-    std::uint32_t lastEntity{0};
-};
+//What should it do:
+// - With entities:
+    // - add an entity
+    // - delete an entity
+    // - check if an entity exists
+    // - delete an entity
+    // - add a component to an entity
+    // - remove a component of an entity
+// - With Systems :
+// - Add a system
+// - remove a system
+////////////////////////////////
 
 }

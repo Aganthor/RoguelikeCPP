@@ -5,14 +5,6 @@
 
 #include <libtcod.hpp>
 
-// Forward declare the Entity and CGameMap classes...
-namespace ecs {
-
-class Entity;
-
-} // namespace ecs
-
-
 namespace Map
 {
     class CGameMap;
@@ -24,8 +16,8 @@ public:
     Renderer();
     ~Renderer();
 
-    void RenderAll(const std::vector<std::unique_ptr<ecs::Entity>>& entities, Map::CGameMap& game_map, bool fov_recompute);
-    void ClearAll(const std::vector<std::unique_ptr<ecs::Entity>>& entities);
+//    void RenderAll(const std::vector<std::unique_ptr<ecs::Entity>>& entities, Map::CGameMap& game_map, bool fov_recompute);
+//    void ClearAll(const std::vector<std::unique_ptr<ecs::Entity>>& entities);
 
     void SetRenderSize(int w, int h) { m_Width = w; m_Height = h; }
 

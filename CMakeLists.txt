@@ -15,15 +15,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS)
 
-
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 include_directories(include/)
 include_directories(Utility/)
 include_directories(MapObjects/)
-include_directories(ecs)
-include_directories(ecs/Components)
+include_directories(ecs/)
+include_directories(ecs/Components/)
 
 add_subdirectory(ecs)
 add_subdirectory(MapObjects)

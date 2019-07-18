@@ -3,30 +3,26 @@
 #include <cstdint>
 #include <type_traits>
 
-#include "componentManager.h"
-#include "../Entity.h"
-
-//
-//The base implementation of a component.
-//
-
 namespace ecs {
 
-struct ComponentCounter {
-    static int familyCounter;
+static constexpr auto MaxComponent = 32;
+
+//
+//Generic Component. A automatic Type ID is generated fdor each.
+//
+
+template <typename T>
+class Component {
+public:
+    static const std::size_t type;
 };
 
-template <typename ComponentType>
-struct Component {
-    static inline int family() {
-        static int family = ComponentCounter::familyCounter++;
-        return family;
-    }
-};
-
-template <typename C>
-static int GetComponentFamily() {
-    return Component<typename std::remove_const<C>::type>::family();
+std::size_t generateComponentType() {
+    static auto counter = std::size_t{0};
+    return counter++;
 }
 
+template <typename T>
+const std::size_t Component<T>::type = generateComponentType();
+  
 } // namespace ecs
