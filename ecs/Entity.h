@@ -11,6 +11,6 @@ using Index = std::uint32_t;
 static constexpr auto InvalidIndex = std::numeric_limits<Index>::max();
 
 constexpr auto MaxEntityCount = 1024;
-
+  
 } // namespace ecs
 

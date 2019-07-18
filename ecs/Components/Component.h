@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <type_traits>
 
 namespace ecs {
 
@@ -23,5 +24,5 @@ std::size_t generateComponentType() {
 
 template <typename T>
 const std::size_t Component<T>::type = generateComponentType();
-
+  
 } // namespace ecs

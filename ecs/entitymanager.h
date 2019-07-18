@@ -8,6 +8,7 @@
 #include "Components/Component.h"
 #include "Systems/system.h"
 
+namespace ecs {
 //
 // The EntityManager is responsible to glue all of the ECS components together.
 //
@@ -24,15 +25,5 @@
 // - Add a system
 // - remove a system
 ////////////////////////////////
-namespace ecs {
-
-class EntityManager {
-public:
-    EntityManager();
-
-private:
-    Entity id;
-
-};
 
 }
