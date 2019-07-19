@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+#include "../../include/libtcod.hpp"
 
 namespace esc {
 
@@ -10,8 +11,10 @@ namespace esc {
 //
 
 struct AsciiComponent : public Component<AsciiComponent> {
-  AsciiComponent(char ch) : display{ch} {}
-  char display{' '};
+  AsciiComponent(char ch, TCODColor pcolor) : character{ch}, color{pcolor} {}
+
+  char character{' '};
+  TCODColor color {TCODColor::white};
 };
 
 }  // namespace esc

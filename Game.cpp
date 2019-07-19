@@ -1,7 +1,6 @@
+#include <chrono>
+
 #include "Game.h"
-
-//#include <iostream>
-
 #include "Engine.h"
 
 
@@ -16,13 +15,20 @@ Game::~Game()
 
 void Game::run()
 {
+    auto prevTime = std::chrono::system_clock::now();
+
 	while (!TCODConsole::isWindowClosed() || m_Engine->isRunning())
 	{
+        auto time = std::chrono::system_clock::now();
+        auto dt = std::chrono::duration<float>(time - prevTime).count();
+
 		m_Engine->RegisterInput();
         m_Engine->HandleInput();
 		if (!m_Engine->isRunning())
 			break;
 		m_Engine->Update();
+
+        prevTime = time;
 	}
 }
 

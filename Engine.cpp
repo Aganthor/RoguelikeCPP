@@ -49,7 +49,7 @@ void Engine::Update()
 ////			m_GameMap.RecomputeFovMap(player->getXPos(), player->getYPos());
 //		}
 	}
-//	m_Renderer.RenderAll(m_Entities, m_GameMap, m_GameMap.RecomputeFov());
+    m_Renderer.RenderAll(m_GameMap, m_GameMap.RecomputeFov());
 	m_GameMap.setRecomputeFov(false);
 //	m_Renderer.ClearAll(m_Entities);
 }
