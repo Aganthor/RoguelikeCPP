@@ -24,7 +24,7 @@ class EntityContainer {
     return m_entityToBitset;
   }
 
-  const std::bitset<ComponentCount>& getSignature(Entity entity) const {
+  const std::bitset<ComponentCount>& getBitset(Entity entity) const {
     return m_entityToBitset[entity];
   }
 

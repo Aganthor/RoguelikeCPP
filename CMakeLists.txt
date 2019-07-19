@@ -24,7 +24,7 @@ include_directories(MapObjects/)
 include_directories(ecs/)
 include_directories(ecs/Components/)
 
-add_subdirectory(ecs)
+#add_subdirectory(ecs)
 add_subdirectory(MapObjects)
 add_subdirectory(Utility)
 

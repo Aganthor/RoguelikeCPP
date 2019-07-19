@@ -25,7 +25,9 @@ protected:
         (m_systemSignature.set(Ts::type);
     }
 
-    const std::vector<Entity>& getManagedEntities() const;
+    const std::vector<Entity>& getManagedEntities() const {
+        return m_managedEntities;
+    }
 
     virtual void onManagedEntityAdded([[maybe_unused]] Entity entity);
     virtual void onManagedEntityRemoved([[maybe_unused]] Entity entity);
@@ -33,11 +35,37 @@ protected:
 private:
     friend EntityManager<ComponentCount, SystemCount>;
 
-    void setUp(std::size_t type);
-    void onEntityUpdated(Entity entity, const std::bitset<ComponentCount>& components);
-    void onEntityRemoved(Entity entity);
-    void addEntity(Entity entity);
-    void removeEntity(Entity entity);
+    void setUp(std::size_t type) { m_type = type; }
+
+    void onEntityUpdated(Entity entity, const std::bitset<ComponentCount>& components) {
+        auto satisfied = (m_systemSignature & components) == m_systemSignature;
+        auto managed = m_entityToManagedEntity.find(entity) != std::end(m_entityToManagedEntity);
+
+        if (satisfied && !managed)
+            addEntity(entity);
+        else if (!satisfied && managed)
+            removeEntity(entity);
+    }
+
+    void onEntityRemoved(Entity entity) {
+        if (m_entityToManagedEntity.find(entity) != std::end(m_entityToManagedEntity))
+            removeEntity(entity);
+    }
+
+    void addEntity(Entity entity) {
+        m_entityToManagedEntity[entity] = static_cast<Index>(m_managedEntities.size());
+        m_managedEntities.emplace_back(entity);
+        onManagedEntityAdded(entity);
+    }
+
+    void removeEntity(Entity entity) {
+        onManagedEntityRemoved(entity);
+        auto index = m_entityToManagedEntity[entity];
+        m_entityToManagedEntity[m_managedEntities.back()] = index;
+        m_entityToManagedEntity.erase(entity);
+        m_managedEntities[index] = m_managedEntities.back();
+        m_managedEntities.pop_back();
+    }
 
     std::bitset<MaxComponent> m_systemSignature;
     std::size_t m_type;
