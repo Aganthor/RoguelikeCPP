@@ -9,8 +9,6 @@
 
 namespace ecs {
 
-// using Entity = std::uint32_t;
-
 template <std::size_t ComponentCount, std::size_t SystemCount>
 class EntityContainer {
  public:

@@ -25,7 +25,8 @@ namespace Map
         CGameMap();
         ~CGameMap();
 
-        void MakeMap(Engine& engine);
+        //void MakeMap(Engine& engine);
+        void MakeMap();
         void RecomputeFovMap(int x, int y, bool light_walls = true, TCOD_fov_algorithm_t algorithm = FOV_BASIC);
         
         //Getters and setters

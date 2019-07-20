@@ -13,8 +13,8 @@ public:
     }
 
     void update(float dt) {
-        for (const auto& entity : getManagedEntitites()) {
-            auto ascii = getComponent(entity);
+        for (const auto& entity : getManagedEntities()) {
+            auto ascii = m_entityManager.getComponent<AsciiComponent>(entity);
         }
     }
 

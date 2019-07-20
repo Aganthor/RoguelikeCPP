@@ -26,7 +26,8 @@ void Game::run()
         m_Engine->HandleInput();
 		if (!m_Engine->isRunning())
 			break;
-		m_Engine->Update();
+
+        m_Engine->Update(dt);
 
         prevTime = time;
 	}

@@ -5,6 +5,7 @@
 #include <memory>
 #include <tuple>
 
+#include "ecs.h"
 #include "Entity.h"
 #include "Components/Component.h"
 #include "Components/componentcontainer.h"
@@ -122,7 +123,7 @@ private:
 
     template<typename T>
     void checkComponentType() const {
-        static_assert (T::type < ComponentCount);
+        static_assert (std::is_base_of_v<Component<T>, T>);
     }
 
     template<typename ...Ts>

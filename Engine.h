@@ -6,9 +6,10 @@
 #include <tuple>
 #include <string>
 
-#include "ecs/Entity.h"
 #include "Renderer.h"
 #include "MapObjects/GameMap.h"
+#include "ecs/entitymanager.h"
+
 
 //***************************************************************************//
 // Engine code will be responsible for handling the graphics part of the     //
@@ -23,6 +24,11 @@ public:
 	const int MAP_WIDTH = 80;
 	const int MAP_HEIGHT = 45;
 
+    const std::size_t MAX_ENTITY = 1000;
+
+    static constexpr auto ComponentCount = 32;
+    static constexpr auto SystemCount = 8;
+
 	enum class GameState 
 	{
 		PLAYERS_TURN,
@@ -30,11 +36,11 @@ public:
 	};
 
 public:
-	Engine();
+    Engine();
 	~Engine();
 
 	void InitEngine();
-	void Update();
+    void Update(float dt);
     void HandleInput();
 	void RegisterInput();
 
@@ -47,14 +53,8 @@ public:
 	bool EntityPresentAt(int x, int y);
     void CreateEntity(int x, int y, const std::string& name, char display, TCODColor color, bool block = false, bool isPlayer = false);
 
-    template <typename T, typename... TArgs>
-    void CreateEntityTest(TArgs... mArgs)
-    {
-        auto uPtr(std::make_unique<T>(std::forward<TArgs>(mArgs)...));
-        //m_Entities.emplace(std::move(uPtr));
-    }
-	
 private:
+    void setupEntityManager();
 	void PlayersTurn();
 	void EnemiesTurn();
 
@@ -69,11 +69,10 @@ private:
 	TCOD_event_t m_TCODEvent;
 	GameState m_GameState;
 
-    //std::vector<std::unique_ptr<ecs::Entity>> m_Entities;
-
-	std::tuple<std::string, int, int> m_InputAction;
+    std::tuple<std::string, int, int> m_InputAction{};
 
 	Renderer m_Renderer;
 	Map::CGameMap m_GameMap;
+    std::unique_ptr<ecs::EntityManager<ComponentCount, SystemCount>> m_entityManager;
 };
 

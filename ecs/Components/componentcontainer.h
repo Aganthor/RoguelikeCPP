@@ -3,7 +3,6 @@
 #include <vector>
 #include <bitset>
 #include <unordered_map>
-#include <utility>
 
 #include "../Entity.h"
 
@@ -27,6 +26,7 @@ public:
 //
 template <typename T, std::size_t ComponentCount, std::size_t SystemCount>
 class ComponentContainer : public BaseComponentContainer {
+public:
     ComponentContainer(std::vector<std::bitset<ComponentCount>>& entityToBitset) :
         m_entityToBitset{entityToBitset} {}
 

@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "../Utility/Random.h"
-#include "../Engine.h"
+//#include "../Engine.h"
 
 namespace Map
 {
@@ -74,7 +74,8 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     // Function to actually create a map full of rooms and corridors.
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::MakeMap(Engine& engine)
+    //void CGameMap::MakeMap(Engine& engine)
+    void CGameMap::MakeMap()
     {
         int num_rooms {0};
         bool intersect {false};
@@ -137,7 +138,7 @@ namespace Map
                         CreateHorizontalTunnel(prev_x, new_x, new_y);
                     }
                     ++num_rooms;
-                    PlaceEntities(engine, *new_room);
+                    //PlaceEntities(engine, *new_room);
                     m_Rooms.push_back(std::move(new_room));
                     intersect = false;
                 }
@@ -187,26 +188,26 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     // Place a random entity in the newly created room.
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::PlaceEntities(Engine& engine, CRect& room)
-	{
-        //Get a random number of enemies to place;
-		auto nbEnemies = Random::intInRange(0, MAX_ENNEMIES_PER_ROOM);
+//    void CGameMap::PlaceEntities(Engine& engine, CRect& room)
+//	{
+//        //Get a random number of enemies to place;
+//		auto nbEnemies = Random::intInRange(0, MAX_ENNEMIES_PER_ROOM);
 
-		for (auto nb = 0; nb < MAX_ENNEMIES_PER_ROOM; ++nb)
-		{
-			//Choose a random place in the room.
-			auto x = Random::intInRange( room.getX1() + 1, room.getX2() - 1);
-			auto y = Random::intInRange( room.getY1() + 1, room.getY2() - 1);
+//		for (auto nb = 0; nb < MAX_ENNEMIES_PER_ROOM; ++nb)
+//		{
+//			//Choose a random place in the room.
+//			auto x = Random::intInRange( room.getX1() + 1, room.getX2() - 1);
+//			auto y = Random::intInRange( room.getY1() + 1, room.getY2() - 1);
 
-			if (!engine.EntityPresentAt(x, y))
-			{
-				if (Random::intInRange(0, 100) < 80)
-					engine.CreateEntity(x, y, "Ogre", 'o', TCODColor::desaturatedGreen, true);
-				else
-					engine.CreateEntity(x, y, "Troll", 'T', TCODColor::darkerGreen, true);
-			}
-		}
-	}
+//			if (!engine.EntityPresentAt(x, y))
+//			{
+//				if (Random::intInRange(0, 100) < 80)
+//					engine.CreateEntity(x, y, "Ogre", 'o', TCODColor::desaturatedGreen, true);
+//				else
+//					engine.CreateEntity(x, y, "Troll", 'T', TCODColor::darkerGreen, true);
+//			}
+//		}
+//	}
 
     ///////////////////////////////////////////////////////////////////////////
     // Checks the color dictionnary to see if a certain color is present.

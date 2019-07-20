@@ -5,10 +5,11 @@
 #include <unordered_map>
 
 #include "../Entity.h"
-#include "../entitymanager.h"
-#include "../Components/Component.h"
 
 namespace ecs {
+
+template <std::size_t ComponentCount, std::size_t SystemCount>
+class EntityManager;
 
 template <std::size_t ComponentCount, std::size_t SystemCount>
 class System {
@@ -22,7 +23,7 @@ protected:
     //
     template <typename ...Ts>
     void setSignature() {
-        (m_systemSignature.set(Ts::type);
+        (m_systemSignature.set(Ts::type), ...);
     }
 
     const std::vector<Entity>& getManagedEntities() const {
@@ -67,7 +68,7 @@ private:
         m_managedEntities.pop_back();
     }
 
-    std::bitset<MaxComponent> m_systemSignature;
+    std::bitset<ComponentCount> m_systemSignature;
     std::size_t m_type;
     std::vector<Entity> m_managedEntities;
     std::unordered_map<Entity, Index> m_entityToManagedEntity;

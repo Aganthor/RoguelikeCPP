@@ -5,9 +5,13 @@
 
 #include "../Utility/Random.h"
 
+#include "ecs/Components/asciicomponent.h"
+#include "ecs/Systems/asciisystem.h"
+
 Engine::Engine()
 {
 	m_Renderer.SetRenderSize(MAP_WIDTH, MAP_HEIGHT);
+    m_entityManager = std::make_unique<ecs::EntityManager<ComponentCount, SystemCount>>();
 }
 
 Engine::~Engine()
@@ -25,7 +29,8 @@ void Engine::InitEngine()
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
 	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
 
-	m_GameMap.MakeMap(*this);
+    //m_GameMap.MakeMap(*this);
+    m_GameMap.MakeMap();
 	m_GameMap.setRecomputeFov(true);
 
 	//Place our player in the first room.
@@ -36,10 +41,16 @@ void Engine::InitEngine()
 	m_IsRunning = true;
 }
 
+void Engine::setupEntityManager() {
+    m_entityManager->reserve(MAX_ENTITY);
+    m_entityManager->registerComponent<ecs::AsciiComponent>();
+
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Called each loop to update the graphics part.
 ///////////////////////////////////////////////////////////////////////////////
-void Engine::Update()
+void Engine::Update(float dt)
 {
 	if (m_GameMap.RecomputeFov())
 	{

@@ -3,7 +3,7 @@
 #include "Component.h"
 #include "../../include/libtcod.hpp"
 
-namespace esc {
+namespace ecs {
 
 //
 // A simple component to be able to represent the character to display

@@ -1,11 +1,8 @@
 #pragma once
 
-#include <cstdint>
-#include <type_traits>
+#include <cstddef>
 
 namespace ecs {
-
-static constexpr auto MaxComponent = 32;
 
 //
 //Generic Component. A automatic Type ID is generated fdor each.
