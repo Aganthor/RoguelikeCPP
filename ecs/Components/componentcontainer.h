@@ -40,7 +40,7 @@ public:
         return m_components[m_entityToComponent[entity]];
     }
     const T& get(Entity entity) const {
-        return m_components[m_entityToComponent[entity]];
+        return m_components[m_entityToComponent.find(entity)->second];
     }
 
     template <typename... Args>

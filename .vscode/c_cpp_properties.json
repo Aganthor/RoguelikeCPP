@@ -4,6 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/ecs/Components",
+                "${workspaceFolder}/ecs/Systems",
                 "${workspaceFolder}/ecs",
                 "${workspaceFolder}/include",
                 "${workspaceFolder}/Utility",
@@ -15,9 +17,16 @@
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "${default}",
+            "intelliSenseMode": "clang-x64",
             "compileCommands": "${workspaceFolder}/build/compile_commands.json",
-            "configurationProvider": "vector-of-bool.cmake-tools"
+            "configurationProvider": "vector-of-bool.cmake-tools",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
         }
     ],
     "version": 4

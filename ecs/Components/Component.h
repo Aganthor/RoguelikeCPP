@@ -14,8 +14,8 @@ public:
     static const std::size_t type;
 };
 
-std::size_t generateComponentType() {
-    static auto counter = std::size_t{0};
+inline std::size_t generateComponentType() {
+    static auto counter = std::size_t(0);
     return counter++;
 }
 
