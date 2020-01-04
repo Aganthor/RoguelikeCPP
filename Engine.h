@@ -8,7 +8,7 @@
 
 #include "Renderer.h"
 #include "MapObjects/GameMap.h"
-#include "ecs/entitymanager.h"
+#include "ecs/EntityManager.h"
 
 
 //***************************************************************************//
@@ -74,6 +74,6 @@ private:
 	Renderer m_Renderer;
 	Map::CGameMap m_GameMap;
     //std::unique_ptr<ecs::EntityManager<ComponentCount, SystemCount>> m_entityManager;
-    ecs::EntityManager<ComponentCount, SystemCount> m_entityManager;
+    ecs::EntityManager m_entityManager;
 };
 

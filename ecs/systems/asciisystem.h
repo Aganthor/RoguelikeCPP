@@ -1,25 +1,20 @@
 #pragma once
 
-#include "system.h"
-#include "../entitymanager.h"
-#include "../Components/asciicomponent.h"
+#include "../components/asciicomponent.h"
+#include "../EntityManager.h"
 
 namespace ecs {
 
-class AsciiSystem : public System<ComponentCount, SystemCount> {
+class AsciiSystem {
 public:
-    AsciiSystem(EntityManager<ComponentCount, SystemCount>& entityManager) : m_entityManager{entityManager} {
-        setSignature<AsciiComponent>();
+    AsciiSystem(EntityManager& entityManager) : m_entityManager{entityManager} {
     }
 
     void update(float dt) {
-        for (const auto& entity : getManagedEntities()) {
-            auto ascii = m_entityManager.getComponent<AsciiComponent>(entity);
-        }
     }
 
 private:
-    EntityManager<ComponentCount, SystemCount>& m_entityManager;
+    EntityManager& m_entityManager;
 };
 
 

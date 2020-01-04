@@ -5,9 +5,9 @@
 
 #include "../Utility/Random.h"
 
-#include "ecs/Components/asciicomponent.h"
-#include "ecs/Components/transformcomponent.h"
-#include "ecs/Systems/asciisystem.h"
+#include "ecs/components/asciicomponent.h"
+#include "ecs/components/transformcomponent.h"
+#include "ecs/systems/asciisystem.h"
 
 Engine::Engine()
 {
@@ -43,8 +43,8 @@ void Engine::InitEngine()
 
 void Engine::setupEntityManager() {
     m_entityManager.reserve(MAX_ENTITY);
-    m_entityManager.registerComponent<ecs::AsciiComponent>();
-    m_entityManager.createSystem<ecs::AsciiSystem>();
+//    m_entityManager.registerComponent<ecs::AsciiComponent>();
+//    m_entityManager.createSystem<ecs::AsciiSystem>();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
