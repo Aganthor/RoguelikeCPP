@@ -6,12 +6,13 @@
 #include "../Utility/Random.h"
 
 #include "ecs/Components/asciicomponent.h"
+#include "ecs/Components/transformcomponent.h"
 #include "ecs/Systems/asciisystem.h"
 
 Engine::Engine()
 {
 	m_Renderer.SetRenderSize(MAP_WIDTH, MAP_HEIGHT);
-    m_entityManager = std::make_unique<ecs::EntityManager<ComponentCount, SystemCount>>();
+    //m_entityManager = std::make_unique<ecs::EntityManager<ComponentCount, SystemCount>>();
 }
 
 Engine::~Engine()
@@ -29,7 +30,6 @@ void Engine::InitEngine()
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
 	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
 
-    //m_GameMap.MakeMap(*this);
     m_GameMap.MakeMap();
 	m_GameMap.setRecomputeFov(true);
 
@@ -42,9 +42,9 @@ void Engine::InitEngine()
 }
 
 void Engine::setupEntityManager() {
-    m_entityManager->reserve(MAX_ENTITY);
-    m_entityManager->registerComponent<ecs::AsciiComponent>();
-
+    m_entityManager.reserve(MAX_ENTITY);
+    m_entityManager.registerComponent<ecs::AsciiComponent>();
+    m_entityManager.createSystem<ecs::AsciiSystem>();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -151,11 +151,9 @@ void Engine::CreateEntity(int x, int y, const std::string& name, char display,
 {
     if (isPlayer)
     {
-        //auto player = std::make_unique<ecs::Entity>(x, y, name, display, color, block);
-        //TODO player stats should be saved and loaded from config file...
-        //TODO Will need to be updated to new ECS...
-//        player->addComponent(std::make_unique<ecs::FighterComponent>(30, 2, 5));
-//        m_Entities.emplace_back(std::move(player));
+        auto player = m_entityManager.createEntity();
+        m_entityManager.addComponent<ecs::AsciiComponent>(player, display, color);
+        m_entityManager.addComponent<ecs::TransformComponent>(player, x, y);
     }
     else
     {

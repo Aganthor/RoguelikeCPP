@@ -73,6 +73,7 @@ private:
 
 	Renderer m_Renderer;
 	Map::CGameMap m_GameMap;
-    std::unique_ptr<ecs::EntityManager<ComponentCount, SystemCount>> m_entityManager;
+    //std::unique_ptr<ecs::EntityManager<ComponentCount, SystemCount>> m_entityManager;
+    ecs::EntityManager<ComponentCount, SystemCount> m_entityManager;
 };
 
