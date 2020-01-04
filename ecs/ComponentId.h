@@ -5,6 +5,6 @@
 namespace ecs
 {
 
-enum class Entity : uint32_t {};
+using ComponentId = uint32_t;
 
 }

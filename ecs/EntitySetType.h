@@ -5,6 +5,6 @@
 namespace ecs
 {
 
-enum class Entity : uint32_t {};
+using EntitySetType = std::size_t;
 
 }

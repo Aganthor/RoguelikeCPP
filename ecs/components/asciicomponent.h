@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Component.h"
 #include "../../include/libtcod.hpp"
 
 namespace ecs {
