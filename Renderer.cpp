@@ -4,7 +4,7 @@
 
 #include <libtcod.hpp>
 
-#include "ecs/Entity.h"
+//#include "ecs/Entity.h"
 #include "MapObjects/GameMap.h"
 #include "Engine.h"
 

@@ -5,9 +5,9 @@
 
 #include "../Utility/Random.h"
 
-#include "ecs/components/asciicomponent.h"
-#include "ecs/components/transformcomponent.h"
-#include "ecs/systems/asciisystem.h"
+//#include "ecs/components/asciicomponent.h"
+//#include "ecs/components/transformcomponent.h"
+//#include "ecs/systems/asciisystem.h"
 
 Engine::Engine()
 {
@@ -42,7 +42,7 @@ void Engine::InitEngine()
 }
 
 void Engine::setupEntityManager() {
-    m_entityManager.reserve(MAX_ENTITY);
+    //m_entityManager.reserve(MAX_ENTITY);
 //    m_entityManager.registerComponent<ecs::AsciiComponent>();
 //    m_entityManager.createSystem<ecs::AsciiSystem>();
 }
@@ -151,9 +151,9 @@ void Engine::CreateEntity(int x, int y, const std::string& name, char display,
 {
     if (isPlayer)
     {
-        auto player = m_entityManager.createEntity();
-        m_entityManager.addComponent<ecs::AsciiComponent>(player, display, color);
-        m_entityManager.addComponent<ecs::TransformComponent>(player, x, y);
+        //auto player = m_entityManager.createEntity();
+        //m_entityManager.addComponent<ecs::AsciiComponent>(player, display, color);
+        //m_entityManager.addComponent<ecs::TransformComponent>(player, x, y);
     }
     else
     {
