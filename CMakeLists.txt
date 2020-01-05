@@ -28,6 +28,7 @@ if (UNIX OR WIN32)
 endif()
 
 include_directories(lib/libtcod/src/)
+include_directories(lib/entt/src/)
 include_directories(Utility/)
 include_directories(MapObjects/)
 include_directories(ecs/Components)
