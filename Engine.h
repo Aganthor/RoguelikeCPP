@@ -1,11 +1,11 @@
 #pragma once
 
-#include <libtcod.hpp>
 #include <memory>
 #include <vector>
 #include <tuple>
 #include <string>
 
+#include "lib/libtcod/src/libtcod.hpp"
 #include "Renderer.h"
 #include "MapObjects/GameMap.h"
 //#include "ecs/EntityManager.h"
