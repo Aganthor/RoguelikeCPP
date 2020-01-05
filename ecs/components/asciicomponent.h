@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../../include/libtcod.hpp"
-#include "../Component.h"
+#include <libtcod/libtcod.hpp>
 
 namespace ecs {
 
@@ -10,7 +9,7 @@ namespace ecs {
 // for the Entity (e.g.: '@' for the player).
 //
 
-struct AsciiComponent : public Component<AsciiComponent> {
+struct AsciiComponent {
   AsciiComponent(char ch, TCODColor pcolor) : character{ch}, color{pcolor} {}
 
   char character{' '};

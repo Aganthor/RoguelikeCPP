@@ -1,10 +1,8 @@
 #pragma once
 
-#include "../Component.h"
-
 namespace ecs {
 
-struct HealthComponent : public Component<HealthComponent> {
+struct HealthComponent {
     HealthComponent() : curHP{0}, maxHP{0} {}
     HealthComponent(int cur, int max) : curHP{cur}, maxHP{max} {}
 
