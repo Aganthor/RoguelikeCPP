@@ -5,10 +5,11 @@
 #include <tuple>
 #include <string>
 
-#include "lib/libtcod/src/libtcod.hpp"
+#include <libtcod/libtcod.hpp>
+
 #include "Renderer.h"
 #include "MapObjects/GameMap.h"
-#include <lib/entt/single_include/entt/entt.hpp>
+#include <entt/entt.hpp>
 
 
 //***************************************************************************//
@@ -54,9 +55,6 @@ private:
     void setupEntityManager();
     void playersTurn();
     void enemiesTurn();
-
-//    ecs::Entity* getPlayerEntity();
-//    ecs::Entity* getBlockingEntityAtLocation(int x, int y);
 	
 private:
 	bool m_IsRunning = { false };

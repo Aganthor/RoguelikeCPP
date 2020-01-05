@@ -117,12 +117,10 @@ void Engine::registerInput()
 		}
 
 		//Check for Escape key or fullscreen sequence
-        if (m_TCODKey.vk == TCODK_ESCAPE)
-		{
+        if (m_TCODKey.vk == TCODK_ESCAPE) {
 			m_IsRunning = false;
 		}
-        if (m_TCODKey.vk == TCODK_ENTER && m_TCODKey.lalt)
-		{
+        if (m_TCODKey.vk == TCODK_ENTER && m_TCODKey.lalt) {
 			m_FullScreen = !m_FullScreen;
 			TCODConsole::setFullscreen(m_FullScreen);
 		}
@@ -219,44 +217,3 @@ void Engine::enemiesTurn()
 	setGameState(GameState::PLAYERS_TURN);
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Helper function to get the player Entity!
-///////////////////////////////////////////////////////////////////////////////
-//ecs::Entity* Engine::getPlayerEntity()
-//{
-//	auto player = std::find_if(m_Entities.begin(), m_Entities.end(), [](const auto &entity)
-//	{
-//        //TODO Will need to be updated to new ECS...
-//		return entity->getName() == "Player";
-//	});
-
-//	if (player != std::end(m_Entities))
-//		return (*player).get();
-//	else
-//		return nullptr;
-//}
-
-///////////////////////////////////////////////////////////////////////////////
-// Helper function to determine if the entity we are about to walk to is
-// a blocking entity or not.
-///////////////////////////////////////////////////////////////////////////////
-//ecs::Entity* Engine::getBlockingEntityAtLocation(int x, int y)
-//{
-//	auto ent = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
-//	{
-//        //TODO Will need to be updated to new ECS...
-//		return entity->getXPos() == x && entity->getYPos() == y;
-//	});
-
-//	if (ent != std::end(m_Entities))
-//	{
-//        //TODO Will need to be updated to new ECS...
-////		if ((*ent)->isBlocking())
-////			return (*ent).get();
-////		else
-////			return nullptr;
-//	}
-
-//	//If no entities at location, that means that it's certainly not blocking :)
-//	return nullptr;
-//}
