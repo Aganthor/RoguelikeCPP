@@ -6,7 +6,7 @@
 #include <map>
 #include <cassert>
 
-#include <libtcod.hpp>
+#include <libtcod/libtcod.hpp>
 
 #include "Tile.h"
 #include "Rect.h"

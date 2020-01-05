@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 
-#include "lib/libtcod/src/libtcod.hpp"
+#include <libtcod/libtcod.hpp>
 
 namespace Map
 {

@@ -105,7 +105,7 @@ namespace Map
                 //If the new room intersect, toss it out.
                 for (auto &room : m_Rooms)
                 {
-                    if (new_room->Intersect(*room))
+                    if (new_room->intersect(*room))
                     {
 						if (auto ptr = new_room.release(); ptr)
 						{
