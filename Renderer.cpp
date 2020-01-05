@@ -10,14 +10,18 @@
 
 Renderer::Renderer()
 {
-  m_OffConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
 }
 
 Renderer::~Renderer()
 {
 }
 
-void Renderer::RenderAll(Map::CGameMap& game_map,
+void Renderer::initRenderer() {
+    assert(m_Width > 0 && m_Height > 0);
+    m_OffConsole = std::make_unique<TCODConsole>(m_Width, m_Height);
+}
+
+void Renderer::renderAll(Map::CGameMap& game_map,
              bool fov_recompute)
 {
     //First, render the map.

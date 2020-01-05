@@ -11,7 +11,6 @@
 
 Engine::Engine()
 {
-	m_Renderer.SetRenderSize(MAP_WIDTH, MAP_HEIGHT);
     //m_entityManager = std::make_unique<ecs::EntityManager<ComponentCount, SystemCount>>();
 }
 
@@ -26,6 +25,10 @@ void Engine::InitEngine()
 {
     //Initialize the random number generator.
 	Random::init();
+
+    //Initialize the renderer.
+    m_Renderer.setRenderSize(MAP_WIDTH, MAP_HEIGHT);
+    m_Renderer.initRenderer();
 
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
 	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
@@ -60,7 +63,7 @@ void Engine::Update(float dt)
 ////			m_GameMap.RecomputeFovMap(player->getXPos(), player->getYPos());
 //		}
 	}
-    m_Renderer.RenderAll(m_GameMap, m_GameMap.RecomputeFov());
+    m_Renderer.renderAll(m_GameMap, m_GameMap.RecomputeFov());
 	m_GameMap.setRecomputeFov(false);
 //	m_Renderer.ClearAll(m_Entities);
 }
