@@ -26,20 +26,20 @@ namespace Map
         ~CGameMap();
 
         //void MakeMap(Engine& engine);
-        void MakeMap();
-        void RecomputeFovMap(int x, int y, bool light_walls = true, TCOD_fov_algorithm_t algorithm = FOV_BASIC);
+        void makeMap();
+        void recomputeFovMap(int x, int y, bool light_walls = true, TCOD_fov_algorithm_t algorithm = FOV_BASIC);
         
         //Getters and setters
         int getWidth() const { return m_Width; }
         int getHeight() const { return m_Height; }
-        void setWidth(int w) { m_Width = w; ResizeGameMap(); }
-        void setHeight(int h) { m_Height = h; ResizeGameMap(); }
-        void setWidthHeight(int w, int h) { m_Width = w; m_Height = h; ResizeGameMap(); }
+        void setWidth(int w) { m_Width = w; resizeGameMap(); }
+        void setHeight(int h) { m_Height = h; resizeGameMap(); }
+        void setWidthHeight(int w, int h) { m_Width = w; m_Height = h; resizeGameMap(); }
         const TCODColor getColorCode(const std::string& color_id) const;
         CTile& getTile(int x, int y) { return m_GameMap[x][y]; }
         bool isBlocked(int x, int y);
         void setRecomputeFov(bool recompute) {m_RecomputeFov = recompute; }
-        bool RecomputeFov() { return m_RecomputeFov; }
+        bool recomputeFov() { return m_RecomputeFov; }
 
         const CRect& getFirstRoom(void)
         {
@@ -50,13 +50,13 @@ namespace Map
         const TCODMap* getFovMap(void) const { return m_FovMap.get(); }
 
     private:
-        void InitTiles(void);
-        void InitFovMap(void);
-        void ResizeGameMap(void);
-        void CreateRoom(CRect& room);
-        void CreateHorizontalTunnel(int x1, int x2, int y);
-        void CreateVerticalTunnel(int y1, int y2, int x);
-		void PlaceEntities(Engine& engine, CRect& room);
+        void initTiles(void);
+        void initFovMap(void);
+        void resizeGameMap(void);
+        void createRoom(CRect& room);
+        void createHorizontalTunnel(int x1, int x2, int y);
+        void createVerticalTunnel(int y1, int y2, int x);
+        void placeEntities(Engine& engine, CRect& room);
 
     private:
         int m_Width;

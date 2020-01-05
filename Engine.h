@@ -8,7 +8,7 @@
 #include "lib/libtcod/src/libtcod.hpp"
 #include "Renderer.h"
 #include "MapObjects/GameMap.h"
-//#include "ecs/EntityManager.h"
+#include <lib/entt/single_include/entt/entt.hpp>
 
 
 //***************************************************************************//
@@ -26,9 +26,6 @@ public:
 
     const std::size_t MAX_ENTITY = 1000;
 
-    static constexpr auto ComponentCount = 32;
-    static constexpr auto SystemCount = 8;
-
 	enum class GameState 
 	{
 		PLAYERS_TURN,
@@ -39,10 +36,10 @@ public:
     Engine();
 	~Engine();
 
-	void InitEngine();
-    void Update(float dt);
-    void HandleInput();
-	void RegisterInput();
+    void initEngine();
+    void update(float dt);
+    void handleInput();
+    void registerInput();
 
 	bool isRunning() { return m_IsRunning; }
 	bool isFullScreen() { return m_FullScreen; }
@@ -50,13 +47,13 @@ public:
 	void setGameState(GameState state) { m_GameState = state; }
     GameState getGameState(void) const { return m_GameState; }
 
-	bool EntityPresentAt(int x, int y);
-    void CreateEntity(int x, int y, const std::string& name, char display, TCODColor color, bool block = false, bool isPlayer = false);
+    bool entityPresentAt(int x, int y);
+    void createEntity(int x, int y, const std::string& name, char display, TCODColor color, bool block = false, bool isPlayer = false);
 
 private:
     void setupEntityManager();
-	void PlayersTurn();
-	void EnemiesTurn();
+    void playersTurn();
+    void enemiesTurn();
 
 //    ecs::Entity* getPlayerEntity();
 //    ecs::Entity* getBlockingEntityAtLocation(int x, int y);
@@ -73,7 +70,7 @@ private:
 
 	Renderer m_Renderer;
 	Map::CGameMap m_GameMap;
-    //std::unique_ptr<ecs::EntityManager<ComponentCount, SystemCount>> m_entityManager;
-    //ecs::EntityManager m_entityManager;
+
+    entt::registry m_ecsManager;
 };
 

@@ -22,12 +22,12 @@ void Game::run()
         auto time = std::chrono::system_clock::now();
         auto dt = std::chrono::duration<float>(time - prevTime).count();
 
-		m_Engine->RegisterInput();
-        m_Engine->HandleInput();
+		m_Engine->registerInput();
+        m_Engine->handleInput();
 		if (!m_Engine->isRunning())
 			break;
 
-        m_Engine->Update(dt);
+        m_Engine->update(dt);
 
         prevTime = time;
 	}
@@ -36,5 +36,5 @@ void Game::run()
 void Game::init()
 {
 	m_Engine = std::make_unique<Engine>();
-	m_Engine->InitEngine();
+	m_Engine->initEngine();
 }

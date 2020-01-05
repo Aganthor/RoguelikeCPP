@@ -21,7 +21,7 @@ Engine::~Engine()
 ///////////////////////////////////////////////////////////////////////////////
 // Initialize TCOD consoles; create game map and place player in the 1st room.
 ///////////////////////////////////////////////////////////////////////////////
-void Engine::InitEngine()
+void Engine::initEngine()
 {
     //Initialize the random number generator.
 	Random::init();
@@ -33,12 +33,12 @@ void Engine::InitEngine()
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
 	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
 
-    m_GameMap.MakeMap();
+    m_GameMap.makeMap();
 	m_GameMap.setRecomputeFov(true);
 
 	//Place our player in the first room.
 	auto [x, y] = m_GameMap.getFirstRoom().getCenter();
-    CreateEntity(x, y, "Player", '@', TCODColor::white, false, true);
+    createEntity(x, y, "Player", '@', TCODColor::white, false, true);
     //CreateEntityTest<Entity>
 
 	m_IsRunning = true;
@@ -53,9 +53,9 @@ void Engine::setupEntityManager() {
 ///////////////////////////////////////////////////////////////////////////////
 // Called each loop to update the graphics part.
 ///////////////////////////////////////////////////////////////////////////////
-void Engine::Update(float dt)
+void Engine::update(float dt)
 {
-	if (m_GameMap.RecomputeFov())
+    if (m_GameMap.recomputeFov())
 	{
 //        //TODO Will need to be updated to new ECS...
 //		if (auto player = getPlayerEntity(); player)
@@ -63,22 +63,22 @@ void Engine::Update(float dt)
 ////			m_GameMap.RecomputeFovMap(player->getXPos(), player->getYPos());
 //		}
 	}
-    m_Renderer.renderAll(m_GameMap, m_GameMap.RecomputeFov());
+    m_Renderer.renderAll(m_GameMap, m_GameMap.recomputeFov());
 	m_GameMap.setRecomputeFov(false);
 //	m_Renderer.ClearAll(m_Entities);
 }
 
-void Engine::HandleInput()
+void Engine::handleInput()
 {
-    PlayersTurn();
-    EnemiesTurn();
+    playersTurn();
+    enemiesTurn();
 }
 ///////////////////////////////////////////////////////////////////////////////
 // Function that register keyboard input. FOr fullscreen and exit, we just
 // set some boolean. FOr mouvement, we set up the m_InputAction tuple to
 // represent what the user did.
 ///////////////////////////////////////////////////////////////////////////////
-void Engine::RegisterInput()
+void Engine::registerInput()
 {
 	m_TCODEvent = TCODSystem::checkForEvent(TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &m_TCODKey, &m_TCODMouse);
 
@@ -132,7 +132,7 @@ void Engine::RegisterInput()
 ///////////////////////////////////////////////////////////////////////////////
 // Helper function to determine if an entity is present at location x and y.
 ///////////////////////////////////////////////////////////////////////////////
-bool Engine::EntityPresentAt(int x, int y)
+bool Engine::entityPresentAt(int x, int y)
 {
 //	auto entity_present = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
 //	{
@@ -149,7 +149,7 @@ bool Engine::EntityPresentAt(int x, int y)
 ///////////////////////////////////////////////////////////////////////////////
 // Helper function to create a new entity for the game.
 ///////////////////////////////////////////////////////////////////////////////
-void Engine::CreateEntity(int x, int y, const std::string& name, char display,
+void Engine::createEntity(int x, int y, const std::string& name, char display,
                           TCODColor color, bool block, bool isPlayer)
 {
     if (isPlayer)
@@ -167,7 +167,7 @@ void Engine::CreateEntity(int x, int y, const std::string& name, char display,
 ///////////////////////////////////////////////////////////////////////////////
 // Takes care of handling the input registered in RegisterInput.
 ///////////////////////////////////////////////////////////////////////////////
-void Engine::PlayersTurn()
+void Engine::playersTurn()
 {
 	auto [action, dx, dy] = m_InputAction;
 
@@ -205,7 +205,7 @@ void Engine::PlayersTurn()
 ///////////////////////////////////////////////////////////////////////////////
 // Loops through all the entities and allowing them to take a turn.
 ///////////////////////////////////////////////////////////////////////////////
-void Engine::EnemiesTurn()
+void Engine::enemiesTurn()
 {
 //	for (auto &entity : m_Entities)
 //	{

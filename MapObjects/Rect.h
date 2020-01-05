@@ -22,7 +22,7 @@ public:
     {
         return std::make_pair((m_x1 + m_x2) / 2, (m_y1 + m_y2) / 2);
     }
-    bool Intersect(const CRect& other) const
+    bool intersect(const CRect& other) const
     {
         return ((m_x1 <= other.getX2()) && (m_x2 >= other.getX1()) && 
                (m_y1 <= other.getY2()) && (m_y2 >= other.getY1()));

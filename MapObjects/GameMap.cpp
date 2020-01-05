@@ -13,8 +13,8 @@ namespace Map
                            m_RoomMaxSize {10}, m_RoomMinSize {6},
                            m_RecomputeFov {true}
     {
-        ResizeGameMap();
-        InitTiles();
+        resizeGameMap();
+        initTiles();
 
         m_FovMap = std::make_unique<TCODMap>(m_Width, m_Height);
 
@@ -32,7 +32,7 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     // As the name implies, initialize all the tiles in the map.
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::InitTiles(void)
+    void CGameMap::initTiles(void)
     {
         for (auto y = 0; y < MAP_HEIGHT; ++y)
         {
@@ -46,7 +46,7 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     // Initialize the Fov map!
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::InitFovMap(void)
+    void CGameMap::initFovMap(void)
     {
         for (auto y = 0; y < m_Height; ++y)
             for (auto x = 0; x < m_Width; ++x)
@@ -57,7 +57,7 @@ namespace Map
     // Resize the game map vector according to the width and height member
     // variables.
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::ResizeGameMap(void)
+    void CGameMap::resizeGameMap(void)
     {
         m_GameMap.resize(m_Width);
         for (auto &col : m_GameMap)
@@ -75,7 +75,7 @@ namespace Map
     // Function to actually create a map full of rooms and corridors.
     ///////////////////////////////////////////////////////////////////////////
     //void CGameMap::MakeMap(Engine& engine)
-    void CGameMap::MakeMap()
+    void CGameMap::makeMap()
     {
         int num_rooms {0};
         bool intersect {false};
@@ -95,7 +95,7 @@ namespace Map
             if (num_rooms == 0)
             {
                 //It'S our first room!!!
-                CreateRoom(*new_room);
+                createRoom(*new_room);
                 ++num_rooms;
                 m_Rooms.push_back(std::move(new_room));
             }
@@ -117,7 +117,7 @@ namespace Map
                 }
                 if (!intersect)
                 {
-                    CreateRoom(*new_room);
+                    createRoom(*new_room);
                     auto [new_x, new_y] = new_room->getCenter();
 
                     //Connect it to the previous one.
@@ -128,14 +128,14 @@ namespace Map
                     if (Random::flipACoin())
                     {
                         //First move horizontally, then  vertically.
-                        CreateHorizontalTunnel(prev_x, new_x, prev_y);
-                        CreateVerticalTunnel(prev_y, new_y, new_x);
+                        createHorizontalTunnel(prev_x, new_x, prev_y);
+                        createVerticalTunnel(prev_y, new_y, new_x);
                     }
                     else
                     {
                         //First move vertically, then horizontally.
-                        CreateVerticalTunnel(prev_y, new_y, prev_x);
-                        CreateHorizontalTunnel(prev_x, new_x, new_y);
+                        createVerticalTunnel(prev_y, new_y, prev_x);
+                        createHorizontalTunnel(prev_x, new_x, new_y);
                     }
                     ++num_rooms;
                     //PlaceEntities(engine, *new_room);
@@ -145,13 +145,13 @@ namespace Map
             }
         }
         std::cout << "Created " << num_rooms << " rooms." << std::endl;
-        InitFovMap();
+        initFovMap();
 
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::RecomputeFovMap(int x, int y, bool light_walls, TCOD_fov_algorithm_t algorithm)
+    void CGameMap::recomputeFovMap(int x, int y, bool light_walls, TCOD_fov_algorithm_t algorithm)
     {
         m_FovMap->computeFov(x, y, FOV_RADIUS, light_walls, algorithm);
     }
@@ -160,7 +160,7 @@ namespace Map
     // Function that will create a room in the map, From (x1,y1) to (x2,y2)
     // we'll set the tiles to be walkable so that the player can walk in it.
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::CreateRoom(CRect& room)
+    void CGameMap::createRoom(CRect& room)
     {
         for (auto x = room.getX1() + 1; x < room.getX2(); ++x)
             for (auto y = room.getY1() + 1; y < room.getY2(); ++y)
@@ -170,7 +170,7 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     // Creates an horizontal tunnel between two rooms.
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::CreateHorizontalTunnel(int x1, int x2, int y)
+    void CGameMap::createHorizontalTunnel(int x1, int x2, int y)
     {
         for (auto x = std::min(x1,x2); x < std::max(x1,x2) + 1; ++x)
             m_GameMap[x][y].setFloor();
@@ -179,7 +179,7 @@ namespace Map
     ///////////////////////////////////////////////////////////////////////////
     // Creates a vertical tunnel between two rooms.
     ///////////////////////////////////////////////////////////////////////////
-    void CGameMap::CreateVerticalTunnel(int y1, int y2, int x)
+    void CGameMap::createVerticalTunnel(int y1, int y2, int x)
     {
         for (auto y = std::min(y1,y2); y < std::max(y1,y2) + 1; ++y)
             m_GameMap[x][y].setFloor();
