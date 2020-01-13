@@ -11,6 +11,8 @@ GTAGS
 TAGS
 GRTAGS
 
+*.autosave
+
 # Compiled Object files
 *.slo
 *.lo
