@@ -16,8 +16,7 @@ public:
     Renderer();
     ~Renderer();
 
-//    void RenderAll(const std::vector<std::unique_ptr<ecs::Entity>>& entities, Map::CGameMap& game_map, bool fov_recompute);
-    void renderAll(Map::CGameMap& game_map, bool fov_recompute);
+   void renderAll(Map::CGameMap& game_map, bool fov_recompute);
 //    void ClearAll(const std::vector<std::unique_ptr<ecs::Entity>>& entities);
 
     void initRenderer();

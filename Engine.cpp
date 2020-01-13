@@ -5,13 +5,12 @@
 
 #include "../Utility/Random.h"
 
-//#include "ecs/components/asciicomponent.h"
-//#include "ecs/components/transformcomponent.h"
-//#include "ecs/systems/asciisystem.h"
+#include "ecs/components/playertag.h"
+#include "ecs/components/asciicomponent.h"
+#include "ecs/components/positioncomponent.h"
 
 Engine::Engine()
 {
-    //m_entityManager = std::make_unique<ecs::EntityManager<ComponentCount, SystemCount>>();
 }
 
 Engine::~Engine()
@@ -42,12 +41,6 @@ void Engine::initEngine()
     //CreateEntityTest<Entity>
 
 	m_IsRunning = true;
-}
-
-void Engine::setupEntityManager() {
-    //m_entityManager.reserve(MAX_ENTITY);
-//    m_entityManager.registerComponent<ecs::AsciiComponent>();
-//    m_entityManager.createSystem<ecs::AsciiSystem>();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -127,22 +120,6 @@ void Engine::registerInput()
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Helper function to determine if an entity is present at location x and y.
-///////////////////////////////////////////////////////////////////////////////
-bool Engine::entityPresentAt(int x, int y)
-{
-//	auto entity_present = std::find_if(m_Entities.begin(), m_Entities.end(), [x, y](const auto &entity)
-//	{
-//        //TODO Will need to be updated to new ECS...
-//		return entity->getXPos() == x && entity->getYPos() == y;
-//	});
-
-//	if (entity_present != std::end(m_Entities))
-		return true;
-//	else
-//		return false;
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 // Helper function to create a new entity for the game.
@@ -152,13 +129,14 @@ void Engine::createEntity(int x, int y, const std::string& name, char display,
 {
     if (isPlayer)
     {
-        //auto player = m_entityManager.createEntity();
-        //m_entityManager.addComponent<ecs::AsciiComponent>(player, display, color);
-        //m_entityManager.addComponent<ecs::TransformComponent>(player, x, y);
+        auto player = m_ecsManager.create();
+        m_ecsManager.assign<ecs::PlayerTag>(player);
+        m_ecsManager.assign<ecs::AsciiComponent>(player, display, color);
+        m_ecsManager.assign<ecs::PositionComponent>(player, x, y);
     }
     else
     {
-  //      m_Entities.emplace_back(std::make_unique<ecs::Entity>(x, y, name, display, color, block));
+
     }
 }
 

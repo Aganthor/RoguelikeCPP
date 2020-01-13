@@ -3,5 +3,5 @@
 namespace ecs {
 
 // Simple struct to tag the player.
-struct Player {};
+struct PlayerTag {};
 }

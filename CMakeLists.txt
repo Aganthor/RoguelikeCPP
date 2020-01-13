@@ -36,9 +36,10 @@ include_directories(ecs/systems)
 
 add_subdirectory(MapObjects)
 add_subdirectory(Utility)
+add_subdirectory(ecs/systems)
 
 add_executable(${PROJECT_NAME} main.cpp Engine.cpp Game.cpp Renderer.cpp)
-target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/lib/libtcod/libtcod.so ${SDL2_LIBRARIES} map_objects utility)
+target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/lib/libtcod/libtcod.so ${SDL2_LIBRARIES} map_objects utility systems_objects)
 
 set (source "${CMAKE_SOURCE_DIR}/res")
 set (destination "${CMAKE_CURRENT_BINARY_DIR}/res")

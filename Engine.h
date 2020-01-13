@@ -5,12 +5,11 @@
 #include <tuple>
 #include <string>
 
+#include <entt/entt.hpp>
 #include <libtcod/libtcod.hpp>
 
 #include "Renderer.h"
 #include "MapObjects/GameMap.h"
-#include <entt/entt.hpp>
-
 
 //***************************************************************************//
 // Engine code will be responsible for handling the graphics part of the     //
@@ -48,11 +47,9 @@ public:
 	void setGameState(GameState state) { m_GameState = state; }
     GameState getGameState(void) const { return m_GameState; }
 
-    bool entityPresentAt(int x, int y);
     void createEntity(int x, int y, const std::string& name, char display, TCODColor color, bool block = false, bool isPlayer = false);
 
 private:
-    void setupEntityManager();
     void playersTurn();
     void enemiesTurn();
 	
