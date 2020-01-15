@@ -10,6 +10,8 @@
 
 #include "Renderer.h"
 #include "MapObjects/GameMap.h"
+#include "ecs/systems/rendersystem.h"
+
 
 //***************************************************************************//
 // Engine code will be responsible for handling the graphics part of the     //
@@ -67,5 +69,6 @@ private:
 	Map::CGameMap m_GameMap;
 
     entt::registry m_ecsManager;
+    ecs::RenderSystem m_renderSystem;
 };
 

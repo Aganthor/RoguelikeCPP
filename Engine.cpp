@@ -26,8 +26,9 @@ void Engine::initEngine()
 	Random::init();
 
     //Initialize the renderer.
-    m_Renderer.setRenderSize(MAP_WIDTH, MAP_HEIGHT);
-    m_Renderer.initRenderer();
+    //m_Renderer.setRenderSize(MAP_WIDTH, MAP_HEIGHT);
+    //m_Renderer.initRenderer();
+    m_renderSystem.setConsoleSize(MAP_WIDTH, MAP_HEIGHT);
 
 	TCODConsole::setCustomFont("res/fonts/arial10x10.png", TCOD_FONT_TYPE_GRAYSCALE | TCOD_FONT_LAYOUT_TCOD);
 	TCODConsole::initRoot(SCREEN_WIDTH, SCREEN_HEIGHT, "Roguelike tutorial in C++", false, TCOD_RENDERER_OPENGL);
@@ -56,7 +57,8 @@ void Engine::update(float dt)
 ////			m_GameMap.RecomputeFovMap(player->getXPos(), player->getYPos());
 //		}
 	}
-    m_Renderer.renderAll(m_GameMap, m_GameMap.recomputeFov());
+    //m_Renderer.renderAll(m_GameMap, m_GameMap.recomputeFov());
+    m_renderSystem.render(m_ecsManager);
 	m_GameMap.setRecomputeFov(false);
 //	m_Renderer.ClearAll(m_Entities);
 }
@@ -109,14 +111,18 @@ void Engine::registerInput()
 			break;
 		}
 
-		//Check for Escape key or fullscreen sequence
+        //Check for Escape key
         if (m_TCODKey.vk == TCODK_ESCAPE) {
 			m_IsRunning = false;
 		}
+        // Check for fullscreen sequence
         if (m_TCODKey.vk == TCODK_ENTER && m_TCODKey.lalt) {
 			m_FullScreen = !m_FullScreen;
 			TCODConsole::setFullscreen(m_FullScreen);
 		}
+        if (TCODConsole::isWindowClosed()) {
+            m_IsRunning = false;
+        }
 	}
 }
 
